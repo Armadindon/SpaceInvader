@@ -11,7 +11,7 @@ namespace SpaceInvaders
     /// </summary>
     abstract class GameObject
     {
-       
+
         public GameObject()
         {
         }
@@ -35,6 +35,6 @@ namespace SpaceInvaders
         /// </summary>
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
-       
+
     }
 }

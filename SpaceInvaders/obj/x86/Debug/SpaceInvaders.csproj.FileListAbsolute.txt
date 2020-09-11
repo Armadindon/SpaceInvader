@@ -1,0 +1,9 @@
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.pdb
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csprojAssemblyReference.cache
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.GameForm.resources
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.Properties.Resources.resources
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.GenerateResource.cache
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.csproj.CoreCompileInputs.cache
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb

@@ -7,50 +7,55 @@ namespace SpaceInvaders
 {
     class Vecteur2D
     {
-        double x;
-        double y;
+        public double X { get; private set; }
+        public double Y { get; private set; }
 
         public double Norme
         {
-            get { return Math.Sqrt(x * x + y * y); }
+            get { return Math.Sqrt(X * X + Y * Y); }
         }
 
         public Vecteur2D(double x, double y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
 
         public Vecteur2D() : this(0, 0) { }
 
         public static Vecteur2D operator+ (Vecteur2D v1, Vecteur2D v2)
         {
-            return new Vecteur2D(v1.x + v2.x, v1.y + v2.y);
+            return new Vecteur2D(v1.X + v2.X, v1.Y + v2.Y);
         }
 
         public static Vecteur2D operator- (Vecteur2D v1, Vecteur2D v2)
         {
-            return new Vecteur2D(v1.x - v2.x, v1.y - v2.y);
+            return new Vecteur2D(v1.X - v2.X, v1.Y - v2.Y);
         }
 
         public static Vecteur2D operator -(Vecteur2D v)
         {
-            return new Vecteur2D(v.x - 1, v.y - 1);
+            return new Vecteur2D(v.X - 1, v.Y - 1);
         }
 
         public static Vecteur2D operator* (Vecteur2D v, double scalaire)
         {
-            return new Vecteur2D(v.x * scalaire, v.y * scalaire);
+            return new Vecteur2D(v.X * scalaire, v.Y * scalaire);
         }
 
         public static Vecteur2D operator* (double scalaire, Vecteur2D v)
         {
-            return new Vecteur2D(v.x * scalaire, v.y * scalaire);
+            return new Vecteur2D(v.X * scalaire, v.Y * scalaire);
         }
 
         public static Vecteur2D operator/ (Vecteur2D v, double scalaire)
         {
-            return new Vecteur2D(v.x / scalaire, v.y / scalaire);
+            return new Vecteur2D(v.X / scalaire, v.Y / scalaire);
+        }
+
+        public override string ToString()
+        {
+            return "(" + X + ", " + Y + ")";
         }
 
     }

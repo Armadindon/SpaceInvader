@@ -76,6 +76,7 @@ namespace SpaceInvaders
         {
             if (game == null)
                 game = new Game(gameSize);
+            game.initGame();
             return game;
         }
 
@@ -97,9 +98,9 @@ namespace SpaceInvaders
         /// explicitily retype it or the system autofires it again.
         /// </summary>
         /// <param name="key">key to ignore</param>
-        public void ReleaseKey(Keys key)
+        public void ReleaseKeys()
         {
-            keyPressed.Remove(key);
+            keyPressed.Clear();
         }
 
 
@@ -113,6 +114,14 @@ namespace SpaceInvaders
                 gameObject.Draw(this, g);       
         }
 
+        public void initGame()
+        {
+            //On ajoute le joueur
+            Bitmap playerSprite = SpaceInvaders.Properties.Resources.ship1;
+            Vecteur2D pos = new Vecteur2D((gameSize.Width / 2) - (playerSprite.Width), gameSize.Height - (2 * playerSprite.Height));
+            AddNewGameObject(new Player(pos));
+        }
+
         /// <summary>
         /// Update game
         /// </summary>
@@ -122,18 +131,6 @@ namespace SpaceInvaders
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
 
-
-            // if space is pressed
-            if (keyPressed.Contains(Keys.Space))
-            {
-                // create new BalleQuiTombe
-                GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
-                // add it to the game
-                AddNewGameObject(newObject);
-                // release key space (no autofire)
-                ReleaseKey(Keys.Space);
-            }
-
             // update each game object
             foreach (GameObject gameObject in gameObjects)
             {
@@ -142,6 +139,9 @@ namespace SpaceInvaders
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+
+            // release pressed keys
+            ReleaseKeys();
         }
         #endregion
     }

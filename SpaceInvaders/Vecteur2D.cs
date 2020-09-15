@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SpaceInvaders
 {
-    class Vecteur2D
+    public class Vecteur2D
     {
         public double X { get; private set; }
         public double Y { get; private set; }

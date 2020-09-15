@@ -11,7 +11,7 @@ namespace SpaceInvaders
      *Classe Utilitaire
      *L'intêret et de ne pas donner directement accès aux Bitmap aux GameObjects afin de pouvoir changer le fonctionnement interne si besoin (Animation par exemple)
      */
-    public class Sprite
+    public class Sprite : Shape
     {
         private Bitmap image;
 
@@ -25,5 +25,9 @@ namespace SpaceInvaders
             return image;
         }
 
+        public bool intersect(Shape shape)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

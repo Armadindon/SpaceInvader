@@ -31,7 +31,7 @@
   <Class Name="SpaceInvaders.Player">
     <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAIABAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CQQAAAAAAAAAAgAAAAAAIABAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,14 +57,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Sprite">
-    <Position X="4.75" Y="5.25" Width="1.5" />
+    <Position X="8.5" Y="5.75" Width="1.5" />
     <Members>
       <Field Name="image" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAFAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
   </Class>
   <Class Name="SpaceInvaders.Missil">
     <Position X="2.75" Y="5.25" Width="1.5" />
@@ -73,6 +74,21 @@
       <FileName>Missil.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SpaceInvaders.Rectangle">
+    <Position X="8.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAQAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Rectangle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.196" />
+  </Class>
+  <Interface Name="SpaceInvaders.Shape">
+    <Position X="6.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shape.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="SpaceInvaders.Teams">
     <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>

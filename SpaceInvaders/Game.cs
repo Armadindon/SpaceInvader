@@ -75,8 +75,10 @@ namespace SpaceInvaders
         public static Game CreateGame(Size gameSize)
         {
             if (game == null)
+            {
                 game = new Game(gameSize);
-            game.initGame();
+                game.initGame();
+            }
             return game;
         }
 
@@ -120,6 +122,8 @@ namespace SpaceInvaders
             Bitmap playerSprite = SpaceInvaders.Properties.Resources.ship1;
             Vecteur2D pos = new Vecteur2D((gameSize.Width / 2) - (playerSprite.Width), gameSize.Height - (2 * playerSprite.Height));
             AddNewGameObject(new Player(pos));
+
+            AddNewGameObject(new EnemyGroup());
         }
 
         /// <summary>

@@ -32,7 +32,10 @@ namespace SpaceInvaders
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
             graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
             //Draw Hitbox
-            //graphics.DrawRectangle(Pens.Red, (float)position.X, (float)position.Y, sprite.Draw().Width, sprite.Draw().Height);
+            graphics.DrawRectangle(Pens.Red, (float)position.X, (float)position.Y, sprite.Draw().Width, sprite.Draw().Height);
+            //Draw Player Camp Hitbox
+            graphics.DrawRectangle(Pens.Red, 0  , (float)(gameInstance.gameSize.Width * 0.75), gameInstance.gameSize.Width, (float)(gameInstance.gameSize.Height * 0.25));
+
         }
 
         public override bool IsAlive()
@@ -43,7 +46,6 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT)
         {
             if (activeMissil != null && !activeMissil.IsAlive()) this.activeMissil = null;
-            //TODO : Mettre en place une solution afin que la gestion des touches se fait depuis la classe "Game" -> MVC
             if (Game.game.keyPressed.Contains(Keys.Right))
             {
                 if (position.X + PlayerSpeed * deltaT > Game.game.gameSize.Width - sprite.Draw().Width) position = new Vecteur2D(Game.game.gameSize.Width - sprite.Draw().Width, position.Y);

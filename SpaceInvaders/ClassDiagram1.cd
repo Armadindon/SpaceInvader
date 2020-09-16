@@ -42,17 +42,10 @@
       <FileName>Bunker.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SpaceInvaders.EnemyGroup">
-    <Position X="4.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EnemyGroup.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="SpaceInvaders.Enemy">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQQAAAAAAAAAAgAAAAAAIAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,10 +70,17 @@
   <Class Name="SpaceInvaders.Rectangle">
     <Position X="8.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAQAAAAAAAIAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAABAQAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Rectangle.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Left" Position="0.196" />
+  </Class>
+  <Class Name="SpaceInvaders.EnemyGroup">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAQAAAAAAgAAAAAAAAABAAAAAgABAAAAAABAAAA=</HashCode>
+      <FileName>EnemyGroup.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="SpaceInvaders.Shape">
     <Position X="6.75" Y="4.5" Width="1.5" />

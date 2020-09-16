@@ -62,6 +62,8 @@ namespace SpaceInvaders
         /// A shared simple font
         /// </summary>
         private static Font defaultFont = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel);
+
+        public static Random random = new Random();
         #endregion
 
 
@@ -113,17 +115,18 @@ namespace SpaceInvaders
         public void Draw(Graphics g)
         {
             foreach (GameObject gameObject in gameObjects)
-                gameObject.Draw(this, g);       
+            {
+                gameObject.Draw(this, g);
+                gameObject.getHitbox().Draw(g, Pens.Red);
+            }
         }
 
         public void initGame()
         {
             //On ajoute le joueur
-            Bitmap playerSprite = SpaceInvaders.Properties.Resources.ship1;
-            Vecteur2D pos = new Vecteur2D((gameSize.Width / 2) - (playerSprite.Width), gameSize.Height - (2 * playerSprite.Height));
-            AddNewGameObject(new Player(pos));
+            AddNewGameObject(Player.CreatePlayer());
 
-            AddNewGameObject(new EnemyGroup());
+            AddNewGameObject(EnemyGroup.createEnemyGroup());
         }
 
         /// <summary>

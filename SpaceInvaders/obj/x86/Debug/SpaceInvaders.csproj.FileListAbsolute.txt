@@ -17,3 +17,4 @@ C:\Users\Baptiste\Source\Repos\Armadindon\SpaceInvader\SpaceInvaders\obj\x86\Deb
 C:\Users\Baptiste\Source\Repos\Armadindon\SpaceInvader\SpaceInvaders\obj\x86\Debug\SpaceInvaders.exe
 C:\Users\Baptiste\Source\Repos\Armadindon\SpaceInvader\SpaceInvaders\obj\x86\Debug\SpaceInvaders.pdb
 C:\Users\Baptiste\Source\Repos\Armadindon\SpaceInvader\SpaceInvaders\bin\Debug\SpaceInvaders.exe.config
+C:\Users\bapti\source\repos\SpaceInvaders\SpaceInvaders\bin\Debug\SpaceInvaders.exe.config

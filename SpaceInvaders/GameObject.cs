@@ -36,5 +36,12 @@ namespace SpaceInvaders
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
 
+
+        public abstract bool IsColliding(GameObject go);
+
+        public abstract Teams whichTeam();
+
+        public abstract Rectangle getHitbox();
+
     }
 }

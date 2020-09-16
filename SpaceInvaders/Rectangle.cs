@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
 namespace SpaceInvaders
 {
-    public class Rectangle : Shape
+    public class Rectangle
     {
         public Vecteur2D v1;
         public Vecteur2D v2;
@@ -24,10 +25,14 @@ namespace SpaceInvaders
             return new Rectangle(r.v1 + v, r.v2 + v);
         }
 
-
-        public bool intersect(Shape shape)
+        public bool intersect(Rectangle r)
         {
-            throw new NotImplementedException();
+            return !((r.v1.X > v2.X) || (r.v1.Y > v2.Y) || (v1.X > r.v2.X) || (v1.Y > r.v2.X)); 
+        }
+
+        public void Draw(Graphics g ,Pen pen)
+        {
+            g.DrawRectangle(pen, (float) v1.X, (float) v1.Y, (float)( v2.X - v1.X), (float)( v2.Y - v1.Y));
         }
     }
 }

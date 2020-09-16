@@ -11,6 +11,9 @@ namespace SpaceInvaders
 {
     class Player : GameObject
     {
+        public static Player player;
+
+
         private Sprite sprite;
 
         private Vecteur2D position;
@@ -19,28 +22,51 @@ namespace SpaceInvaders
 
         private Missil activeMissil = null;
 
-        public Player(Vecteur2D position)
+        private Player(Vecteur2D position)
         {
             sprite = new Sprite(SpaceInvaders.Properties.Resources.ship1);
             this.position = position;
         }
 
-        public Player(double x, double y): this(new Vecteur2D(x, y)) { }
+        private Player(double x, double y): this(new Vecteur2D(x, y)) { }
+
+        public static Player CreatePlayer()
+        {
+            if (Player.player != null)
+            {
+                return Player.player;
+            }
+            Bitmap playerSprite = Properties.Resources.ship1;
+            Vecteur2D pos = new Vecteur2D((Game.game.gameSize.Width / 2) - (playerSprite.Width), Game.game.gameSize.Height - (2 * playerSprite.Height));
+            Player.player = new Player(pos);
+            return Player.player;
+        }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
             graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
             //Draw Hitbox
-            graphics.DrawRectangle(Pens.Red, (float)position.X, (float)position.Y, sprite.Draw().Width, sprite.Draw().Height);
+            //graphics.DrawRectangle(Pens.Red, (float)position.X, (float)position.Y, sprite.Draw().Width, sprite.Draw().Height);
             //Draw Player Camp Hitbox
-            graphics.DrawRectangle(Pens.Red, 0  , (float)(gameInstance.gameSize.Width * 0.75), gameInstance.gameSize.Width, (float)(gameInstance.gameSize.Height * 0.25));
+            //graphics.DrawRectangle(Pens.Red, 0  , (float)(gameInstance.gameSize.Width * 0.75), gameInstance.gameSize.Width, (float)(gameInstance.gameSize.Height * 0.25));
 
+        }
+
+        public override Rectangle getHitbox()
+        {
+            Bitmap sprite = this.sprite.Draw();
+            return new Rectangle(position.X, position.Y, sprite.Width, sprite.Height);
         }
 
         public override bool IsAlive()
         {
             return true;
+        }
+
+        public override bool IsColliding(GameObject go)
+        {
+            return whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
         }
 
         public override void Update(Game gameInstance, double deltaT)
@@ -63,6 +89,11 @@ namespace SpaceInvaders
                 gameInstance.AddNewGameObject(this.activeMissil);
             }
 
+        }
+
+        public override Teams whichTeam()
+        {
+            return Teams.Player;
         }
     }
 }

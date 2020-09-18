@@ -23,6 +23,8 @@ namespace SpaceInvaders
 
         public Vecteur2D() : this(0, 0) { }
 
+        public Vecteur2D(Vecteur2D v) : this(v.X, v.Y) { }
+
         public static Vecteur2D operator+ (Vecteur2D v1, Vecteur2D v2)
         {
             return new Vecteur2D(v1.X + v2.X, v1.Y + v2.Y);

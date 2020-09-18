@@ -11,8 +11,6 @@ namespace SpaceInvaders
 {
     class Player : GameObject
     {
-        public static Player player;
-
 
         private Sprite sprite;
 
@@ -22,24 +20,20 @@ namespace SpaceInvaders
 
         private Missil activeMissil = null;
 
-        private Player(Vecteur2D position)
+
+        public Player(Vecteur2D position)
         {
-            sprite = new Sprite(SpaceInvaders.Properties.Resources.ship1);
+            sprite = new Sprite(Properties.Resources.ship1);
             this.position = position;
         }
 
-        private Player(double x, double y): this(new Vecteur2D(x, y)) { }
+        public Player(double x, double y): this(new Vecteur2D(x, y)) { }
 
-        public static Player CreatePlayer()
+        public Player() : this(0,0) 
         {
-            if (Player.player != null)
-            {
-                return Player.player;
-            }
             Bitmap playerSprite = Properties.Resources.ship1;
             Vecteur2D pos = new Vecteur2D((Game.game.gameSize.Width / 2) - (playerSprite.Width), Game.game.gameSize.Height - (2 * playerSprite.Height));
-            Player.player = new Player(pos);
-            return Player.player;
+            this.position = pos;
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -94,6 +88,11 @@ namespace SpaceInvaders
         public override Teams whichTeam()
         {
             return Teams.Player;
+        }
+
+        public override bool collision()
+        {
+            return true;
         }
     }
 }

@@ -31,6 +31,10 @@ namespace SpaceInvaders
         {
             pendingNewGameObjects.Add(gameObject);
         }
+
+        public Player player;
+
+        public EnemyGroup enemyGroup;
         #endregion
 
         #region game technical elements
@@ -124,9 +128,12 @@ namespace SpaceInvaders
         public void initGame()
         {
             //On ajoute le joueur
-            AddNewGameObject(Player.CreatePlayer());
+            this.player = new Player();
+            this.enemyGroup = new EnemyGroup();
 
-            AddNewGameObject(EnemyGroup.createEnemyGroup());
+            AddNewGameObject(this.player);
+            AddNewGameObject(this.enemyGroup);
+
         }
 
         /// <summary>
@@ -145,7 +152,8 @@ namespace SpaceInvaders
             }
 
             // remove dead objects
-            gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+            int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+            if (removed > 0) enemyGroup.resizeHitbox();
 
             // release pressed keys
             ReleaseKeys();

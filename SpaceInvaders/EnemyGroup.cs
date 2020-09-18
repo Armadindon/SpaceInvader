@@ -8,34 +8,23 @@ namespace SpaceInvaders
 {
     class EnemyGroup : GameObject
     {
-        public static EnemyGroup enemyGroup;
-
         Rectangle hitbox;
         private double xSpeed = 15;
         private double ySpeed = Game.game.gameSize.Height / 16;
 
-        List<List<Enemy>> enemies = new List<List<Enemy>>();
         double enemyOffset = 10;
         
 
-        public static EnemyGroup createEnemyGroup()
-        {
-            if (EnemyGroup.enemyGroup != null) return EnemyGroup.enemyGroup;
-            EnemyGroup.enemyGroup = new EnemyGroup();
-            return EnemyGroup.enemyGroup;
-        }
 
-        private EnemyGroup()
+        public EnemyGroup()
         {
             //Constructeur par défaut
             Enemy[] scheme = { new Enemy(0, 0), new Enemy(new Sprite(Properties.Resources.ship3), 0, 0), new Enemy(new Sprite(Properties.Resources.ship5), 0, 0), new Enemy(new Sprite(Properties.Resources.ship6), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0) }; 
             for(int i=0; i < 7; i++)
             {
-                enemies.Add(new List<Enemy>());
                 for(int j=0; j < 6; j++)
                 {
-                    enemies[i].Add(new Enemy(scheme[i], Game.game.gameSize.Width / 8 + (enemyOffset + scheme[0].sprite.Draw().Width) * j, Game.game.gameSize.Height / 16 + (enemyOffset + scheme[0].sprite.Draw().Height) * i));
-                    Game.game.AddNewGameObject(enemies[i][j]);
+                    Game.game.AddNewGameObject(new Enemy(scheme[i], Game.game.gameSize.Width / 8 + (enemyOffset + scheme[0].sprite.Draw().Width) * j, Game.game.gameSize.Height / 16 + (enemyOffset + scheme[0].sprite.Draw().Height) * i));
                 }
             }
             hitbox = new Rectangle(Game.game.gameSize.Width / 8, Game.game.gameSize.Height / 16, (enemyOffset + scheme[0].sprite.Draw().Width) * 6 - enemyOffset, (enemyOffset + scheme[0].sprite.Draw().Height) * 7 - enemyOffset);
@@ -44,7 +33,6 @@ namespace SpaceInvaders
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            //graphics.DrawRectangle(Pens.Red, (float)hitbox.v1.X, (float)hitbox.v1.Y, (float) (hitbox.v2.X - hitbox.v1.X), (float) (hitbox.v2.Y - hitbox.v1.Y));
         }
 
         public override bool IsAlive()
@@ -76,9 +64,7 @@ namespace SpaceInvaders
                 toAdd = new Vecteur2D(deltaT * xSpeed, 0);
                 hitbox += toAdd;
             }
-            foreach (List<Enemy> enemies in this.enemies)
-                foreach (Enemy enemy in enemies)
-                    enemy.position += toAdd;
+            foreach (Enemy enemy in gameInstance.gameObjects.OfType<Enemy>()) enemy.position += toAdd;
         }
 
         public override bool IsColliding(GameObject go)
@@ -94,6 +80,27 @@ namespace SpaceInvaders
         public override Rectangle getHitbox()
         {
             return hitbox;
+        }
+
+        public override bool collision()
+        {
+            return false;
+        }
+
+        public void resizeHitbox()
+        {
+            Vecteur2D min = new Vecteur2D(int.MaxValue, int.MaxValue);
+            Vecteur2D max = new Vecteur2D();
+
+            foreach(Enemy enemy in Game.game.gameObjects.OfType<Enemy>())
+            {
+                if (enemy.position.X < min.X) min = new Vecteur2D(enemy.position.X, min.Y);
+                if (enemy.position.Y < min.Y) min = new Vecteur2D(min.X, enemy.position.Y);
+                if (enemy.position.X + enemy.sprite.Draw().Width > max.X ) max = new Vecteur2D(enemy.position.X + enemy.sprite.Draw().Width, max.Y);
+                if (enemy.position.Y + enemy.sprite.Draw().Height > max.Y) max = new Vecteur2D(max.X , enemy.position.Y + enemy.sprite.Draw().Height);
+
+            }
+            this.hitbox = new Rectangle(min, max);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace SpaceInvaders
         private Sprite sprite = new Sprite(Properties.Resources.shoot1);
         private Vecteur2D position;
         private int missilSpeed = 300;
+        int lives = 1;
         Teams team;
 
         public Missil(Vecteur2D position, Teams team)
@@ -19,6 +20,12 @@ namespace SpaceInvaders
             this.position = position;
             this.team = team;
             if (team == Teams.Player) missilSpeed *= -1; //On ira vers le haut
+        }
+
+        public override bool collision()
+        {
+            lives--;
+            return true;
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -35,7 +42,7 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return (position.X > 0 && position.X < Game.game.gameSize.Width) && (position.Y > 0 && position.Y < Game.game.gameSize.Height);
+            return  lives > 0 && (position.X > 0 && position.X < Game.game.gameSize.Width) && (position.Y > 0 && position.Y < Game.game.gameSize.Height);
         }
 
         public override bool IsColliding(GameObject go)
@@ -47,7 +54,25 @@ namespace SpaceInvaders
         {
             position += new Vecteur2D(0, missilSpeed * deltaT);
 
-            //TODO: Gérer la collision
+            switch (whichTeam())
+            {
+                case Teams.Player:
+                    if (gameInstance.enemyGroup.IsColliding(this))
+                    {
+                        foreach(GameObject go in gameInstance.gameObjects)
+                        {
+                            if (go.IsColliding(this))
+                            {
+                                if (go.collision())
+                                {
+                                    collision();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
         }
 
         public override Teams whichTeam()

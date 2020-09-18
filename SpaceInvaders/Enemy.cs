@@ -10,6 +10,7 @@ namespace SpaceInvaders
     {
         public Sprite sprite;
         public Vecteur2D position;
+        public int lives = 1;
 
         public Enemy(Sprite sprite, Vecteur2D position)
         {
@@ -35,7 +36,7 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return true;
+            return lives > 0;
         }
 
         public override void Update(Game gameInstance, double deltaT)
@@ -61,6 +62,12 @@ namespace SpaceInvaders
         {
             Bitmap sprite = this.sprite.Draw();
             return new Rectangle(position.X, position.Y, sprite.Width, sprite.Height);
+        }
+
+        public override bool collision()
+        {
+            lives--;
+            return true;
         }
     }
 }

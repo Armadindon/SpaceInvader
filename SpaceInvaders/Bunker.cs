@@ -19,6 +19,11 @@ namespace SpaceInvaders
 
         public Bunker(double x, double y) : this(new Vecteur2D(x, y)) { }
 
+        public override bool collision()
+        {
+            return false;
+        }
+
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             throw new NotImplementedException();

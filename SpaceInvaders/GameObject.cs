@@ -43,5 +43,7 @@ namespace SpaceInvaders
 
         public abstract Rectangle getHitbox();
 
+        public abstract bool collision();
+
     }
 }

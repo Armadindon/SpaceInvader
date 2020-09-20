@@ -20,6 +20,8 @@ namespace SpaceInvaders
 
         private Missil activeMissil = null;
 
+        private int lives = 1;
+
 
         public Player(Vecteur2D position)
         {
@@ -55,12 +57,12 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return true;
+            return lives > 0;
         }
 
         public override bool IsColliding(GameObject go)
         {
-            return whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
+            return  whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
         }
 
         public override void Update(Game gameInstance, double deltaT)
@@ -92,6 +94,7 @@ namespace SpaceInvaders
 
         public override bool collision()
         {
+            lives--;
             return true;
         }
     }

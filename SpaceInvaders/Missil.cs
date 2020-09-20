@@ -72,6 +72,17 @@ namespace SpaceInvaders
                         }
                     }
                     break;
+                case Teams.Enemy:
+                    if (gameInstance.player.IsColliding(this))
+                    {
+                        if (gameInstance.player.collision())
+                        {
+                            collision();
+                            return;
+                        }
+                    }
+                    break;
+
             }
         }
 

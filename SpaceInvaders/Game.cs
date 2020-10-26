@@ -121,7 +121,7 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
-                gameObject.getHitbox().Draw(g, Pens.Red);
+                //gameObject.getHitbox().Draw(g, Pens.Red);
             }
         }
 
@@ -133,6 +133,8 @@ namespace SpaceInvaders
 
             AddNewGameObject(this.player);
             AddNewGameObject(this.enemyGroup);
+            Bunker.generateBunkers(this, 3);
+
 
         }
 

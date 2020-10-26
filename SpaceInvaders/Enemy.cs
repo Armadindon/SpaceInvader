@@ -64,10 +64,15 @@ namespace SpaceInvaders
             return new Rectangle(position.X, position.Y, sprite.Width, sprite.Height);
         }
 
-        public override bool collision()
+        public override bool collision(GameObject go)
         {
             lives--;
             return true;
+        }
+
+        public override Sprite GetSprite()
+        {
+            return sprite;
         }
     }
 }

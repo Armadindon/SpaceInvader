@@ -43,7 +43,9 @@ namespace SpaceInvaders
 
         public abstract Rectangle getHitbox();
 
-        public abstract bool collision();
+        public abstract bool collision(GameObject go);
+
+        public abstract Sprite GetSprite();
 
     }
 }

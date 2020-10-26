@@ -92,10 +92,15 @@ namespace SpaceInvaders
             return Teams.Player;
         }
 
-        public override bool collision()
+        public override bool collision(GameObject go)
         {
-            lives--;
+            //lives--;
             return true;
+        }
+
+        public override Sprite GetSprite()
+        {
+            return sprite;
         }
     }
 }

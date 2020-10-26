@@ -26,5 +26,38 @@ namespace SpaceInvaders
         {
             return image;
         }
+
+        public List<Vecteur2D> pixelColliding(Sprite b, Vecteur2D position, Vecteur2D positionB)
+        {
+            List<Vecteur2D> listColliding = new List<Vecteur2D>();
+            if (b == null) return listColliding;
+
+            //On détermine le rectangle en collision
+            Vecteur2D v1Collision = new Vecteur2D(Math.Max(0, positionB.X - position.X), Math.Max(0, positionB.Y - position.Y));
+            Vecteur2D v2Collision = new Vecteur2D(Math.Min(image.Width, positionB.X + b.image.Width - position.X), Math.Min(image.Height, positionB.Y + b.image.Height - position.Y));
+
+            for(int y = (int) v1Collision.Y; y < (int)v2Collision.Y; y++) 
+            {
+                for (int x = (int)v1Collision.X; x < (int)v2Collision.X; x++)
+                {
+                    if(!image.GetPixel(x, y).Equals(Color.FromArgb(0,255,255,255)) 
+                        && !b.image.GetPixel((int)(position.X - positionB.X + x), (int)(position.Y - positionB.Y + y)).Equals(Color.FromArgb(0, 255, 255, 255)))
+                    {
+                        listColliding.Add(new Vecteur2D(x, y));
+                    }
+                }
+
+            }
+
+            return listColliding;
+        }
+
+        public void deleteCollidingPixels(Sprite b, Vecteur2D position, Vecteur2D positionB)
+        {
+            foreach(Vecteur2D pixel in pixelColliding(b, position, positionB))
+            {
+                image.SetPixel((int)pixel.X, (int)pixel.Y, Color.FromArgb(0,255,255,255));
+            }
+        }
     }
 }

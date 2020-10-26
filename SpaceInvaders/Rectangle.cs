@@ -46,6 +46,21 @@ namespace SpaceInvaders
                 ); 
         }
 
+        public bool contains(Vecteur2D v)
+        {
+            return intersect(new Rectangle(v.X, v.Y, 0, 0));
+        }
+
+        public Vecteur2D getOffsetV1(Rectangle r)
+        {
+            return v1 - r.v1;
+        }
+
+        public Vecteur2D getOffsetV2(Rectangle r)
+        {
+            return v2 - r.v2;
+        }
+
         public void Draw(Graphics g ,Pen pen)
         {
             g.DrawRectangle(pen, (float) v1.X, (float) v1.Y, (float)( v2.X - v1.X), (float)( v2.Y - v1.Y));

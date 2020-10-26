@@ -8,6 +8,7 @@ namespace SpaceInvaders
     public enum Teams
     {
         Player,
-        Enemy
+        Enemy,
+        Props
     }
 }

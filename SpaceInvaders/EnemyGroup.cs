@@ -82,7 +82,7 @@ namespace SpaceInvaders
             return hitbox;
         }
 
-        public override bool collision()
+        public override bool collision(GameObject go)
         {
             return false;
         }
@@ -101,6 +101,11 @@ namespace SpaceInvaders
 
             }
             this.hitbox = new Rectangle(min, max);
+        }
+
+        public override Sprite GetSprite()
+        {
+            return null;
         }
     }
 }

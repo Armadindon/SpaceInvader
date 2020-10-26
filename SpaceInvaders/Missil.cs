@@ -11,7 +11,7 @@ namespace SpaceInvaders
 
         private Sprite sprite = new Sprite(Properties.Resources.shoot1);
         private Vecteur2D position;
-        private int missilSpeed = 300;
+        private int missilSpeed = 500;
         int lives = 1;
         Teams team;
 
@@ -22,7 +22,7 @@ namespace SpaceInvaders
             if (team == Teams.Player) missilSpeed *= -1; //On ira vers le haut
         }
 
-        public override bool collision()
+        public override bool collision(GameObject go)
         {
             lives--;
             return true;
@@ -40,6 +40,11 @@ namespace SpaceInvaders
             return new Rectangle(position.X, position.Y, sprite.Width, sprite.Height);
         }
 
+        public override Sprite GetSprite()
+        {
+            return sprite;
+        }
+
         public override bool IsAlive()
         {
             return  lives > 0 && (position.X > 0 && position.X < Game.game.gameSize.Width) && (position.Y > 0 && position.Y < Game.game.gameSize.Height);
@@ -47,42 +52,28 @@ namespace SpaceInvaders
 
         public override bool IsColliding(GameObject go)
         {
-            return whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
+            
+            if(whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox()))
+            {
+                return sprite.pixelColliding(go.GetSprite(),position,go.getHitbox().v1).Count != 0;
+            }
+            return false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {
             position += new Vecteur2D(0, missilSpeed * deltaT);
 
-            switch (whichTeam())
+            foreach (GameObject go in gameInstance.gameObjects)
             {
-                case Teams.Player:
-                    if (gameInstance.enemyGroup.IsColliding(this))
+                if (IsColliding(go))
+                {
+                    if (go.collision(this))
                     {
-                        foreach(GameObject go in gameInstance.gameObjects)
-                        {
-                            if (go.IsColliding(this))
-                            {
-                                if (go.collision())
-                                {
-                                    collision();
-                                    return;
-                                }
-                            }
-                        }
+                        collision(go);
+                        return;
                     }
-                    break;
-                case Teams.Enemy:
-                    if (gameInstance.player.IsColliding(this))
-                    {
-                        if (gameInstance.player.collision())
-                        {
-                            collision();
-                            return;
-                        }
-                    }
-                    break;
-
+                }
             }
         }
 

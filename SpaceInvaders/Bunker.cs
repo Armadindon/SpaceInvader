@@ -12,6 +12,19 @@ namespace SpaceInvaders
         private Sprite sprite = new Sprite(Properties.Resources.bunker);
         Vecteur2D position;
 
+        public static void generateBunkers(Game instance, int number)
+        {
+            Bitmap sprite = Properties.Resources.bunker;
+            Bitmap playerSprite = Properties.Resources.ship1;
+            double spacing = 50;
+            double totalSize = spacing * (number-1) + sprite.Width * number;
+
+            for(int i = 0; i < number; i++)
+            {
+                instance.AddNewGameObject(new Bunker(instance.gameSize.Width / 4 + i * (sprite.Width + spacing), instance.gameSize.Height - (playerSprite.Height*3 + spacing + sprite.Height)));
+            }
+        }
+
         public Bunker(Vecteur2D position)
         {
             this.position = position;
@@ -19,39 +32,51 @@ namespace SpaceInvaders
 
         public Bunker(double x, double y) : this(new Vecteur2D(x, y)) { }
 
-        public override bool collision()
+        public override bool collision(GameObject go)
         {
-            return false;
+            sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
+            return true;
         }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            throw new NotImplementedException();
+            sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
+            graphics.DrawImage(sprite.Draw(), (float)position.X, (float)position.Y);
         }
 
         public override Rectangle getHitbox()
         {
-            throw new NotImplementedException();
+            Bitmap sprite = this.sprite.Draw();
+            return new Rectangle(position.X, position.Y, sprite.Width, sprite.Height);
+        }
+
+        public override Sprite GetSprite()
+        {
+            return sprite;
         }
 
         public override bool IsAlive()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override bool IsColliding(GameObject go)
         {
-            throw new NotImplementedException();
+            if (whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox()))
+            {
+                return sprite.pixelColliding(go.GetSprite(), position, go.getHitbox().v1).Count != 0;
+            }
+            return false;
         }
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            throw new NotImplementedException();
+            //Ne fait rien
         }
 
         public override Teams whichTeam()
         {
-            throw new NotImplementedException();
+            return Teams.Props;
         }
     }
 }

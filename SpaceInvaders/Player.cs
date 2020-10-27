@@ -68,23 +68,46 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT)
         {
             if (activeMissil != null && !activeMissil.IsAlive()) this.activeMissil = null;
-            if (Game.game.keyPressed.Contains(Keys.Right))
+            if (Game.game.keyPressed.Contains(Keys.Right) || Game.game.keyPressed.Contains(Keys.Left))
             {
-                if (position.X + PlayerSpeed * deltaT > Game.game.gameSize.Width - sprite.Draw().Width) position = new Vecteur2D(Game.game.gameSize.Width - sprite.Draw().Width, position.Y);
-                else position += new Vecteur2D(PlayerSpeed * deltaT, 0);
-            }
-            if (Game.game.keyPressed.Contains(Keys.Left))
-            {
-                if (position.X + -PlayerSpeed * deltaT < 0) position = new Vecteur2D(0, position.Y);
-                else position += new Vecteur2D(-PlayerSpeed * deltaT, 0);
+                if(!handleOutOfBound(deltaT)) position += determineMove(deltaT);
             }
             if (Game.game.keyPressed.Contains(Keys.Space) && activeMissil == null)
             {
-                //TODO : Faire en sorte que la classe Missil rajoute sa taille de sprite de manière statique
-                this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
-                gameInstance.AddNewGameObject(this.activeMissil);
+                fireMissil(gameInstance);
             }
+        }
 
+        private void fireMissil(Game gameInstance)
+        {
+            this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
+            gameInstance.AddNewGameObject(this.activeMissil);
+        }
+
+        private Vecteur2D determineMove( double deltaT)
+        {
+            if (Game.game.keyPressed.Contains(Keys.Right))
+            {
+                return new Vecteur2D(PlayerSpeed * deltaT, 0);
+            }
+            return new Vecteur2D(-PlayerSpeed * deltaT, 0);
+        }
+
+        private bool handleOutOfBound(double deltaT)
+        {
+            if (position.X + PlayerSpeed * deltaT > Game.game.gameSize.Width - sprite.Draw().Width)
+            {
+                position = new Vecteur2D(Game.game.gameSize.Width - sprite.Draw().Width, position.Y);
+            }
+            else if (position.X + -PlayerSpeed * deltaT < 0)
+            {
+                position = new Vecteur2D(0, position.Y);
+            }
+            else
+            {
+                return false;
+            }
+            return true;
         }
 
         public override Teams whichTeam()

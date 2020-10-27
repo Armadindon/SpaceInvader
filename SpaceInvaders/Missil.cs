@@ -66,15 +66,21 @@ namespace SpaceInvaders
 
             foreach (GameObject go in gameInstance.gameObjects)
             {
-                if (IsColliding(go))
+                checkAndHandleCollision(go);
+            }
+        }
+
+        private bool checkAndHandleCollision(GameObject go)
+        {
+            if (IsColliding(go))
+            {
+                if (go.collision(this))
                 {
-                    if (go.collision(this))
-                    {
-                        collision(go);
-                        return;
-                    }
+                    collision(go);
+                    return true;
                 }
             }
+            return false;
         }
 
         public override Teams whichTeam()

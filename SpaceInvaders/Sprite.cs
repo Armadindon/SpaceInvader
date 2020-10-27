@@ -29,6 +29,7 @@ namespace SpaceInvaders
 
         public List<Vecteur2D> pixelColliding(Sprite b, Vecteur2D position, Vecteur2D positionB)
         {
+            // TODO : Taille un peu limite, tenter de trouver un moyen de simplifier le code
             List<Vecteur2D> listColliding = new List<Vecteur2D>();
             if (b == null) return listColliding;
 
@@ -40,8 +41,7 @@ namespace SpaceInvaders
             {
                 for (int x = (int)v1Collision.X; x < (int)v2Collision.X; x++)
                 {
-                    if(!image.GetPixel(x, y).Equals(Color.FromArgb(0,255,255,255)) 
-                        && !b.image.GetPixel((int)(position.X - positionB.X + x), (int)(position.Y - positionB.Y + y)).Equals(Color.FromArgb(0, 255, 255, 255)))
+                    if(isPixelsColliding(x,y,position,positionB, b))
                     {
                         listColliding.Add(new Vecteur2D(x, y));
                     }
@@ -50,6 +50,12 @@ namespace SpaceInvaders
             }
 
             return listColliding;
+        }
+
+        private bool isPixelsColliding(int x, int y, Vecteur2D position, Vecteur2D positionB, Sprite b)
+        {
+            return !image.GetPixel(x, y).Equals(Color.FromArgb(0, 255, 255, 255))
+                        && !b.image.GetPixel((int)(position.X - positionB.X + x), (int)(position.Y - positionB.Y + y)).Equals(Color.FromArgb(0, 255, 255, 255));
         }
 
         public void deleteCollidingPixels(Sprite b, Vecteur2D position, Vecteur2D positionB)

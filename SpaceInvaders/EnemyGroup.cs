@@ -42,29 +42,40 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            Vecteur2D toAdd;
+            Vecteur2D toAdd = determineToAdd(gameInstance, deltaT);
             if( hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
             {
-                toAdd = new Vecteur2D((xSpeed < 0) ? 1 : -1, ySpeed);
                 hitbox += toAdd;
                 xSpeed *= -1;
+            }
+            else
+            {
+                hitbox += toAdd;
+            }
+            foreach (Enemy enemy in gameInstance.gameObjects.OfType<Enemy>()) enemy.position += toAdd;
+        }
+
+        private Vecteur2D determineToAdd(Game gameInstance, double deltaT)
+        {
+            Vecteur2D toAdd;
+            if (hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
+            {
+                toAdd = new Vecteur2D((xSpeed < 0) ? 1 : -1, ySpeed); // Gère la fin de l'écran
             }
             else if (hitbox.v1.X + xSpeed * deltaT < 0)
             {
                 toAdd = new Vecteur2D(-hitbox.v1.X, 0);
-                hitbox += toAdd;
             }
             else if (hitbox.v2.X + xSpeed * deltaT > Game.game.gameSize.Width)
             {
                 toAdd = new Vecteur2D(gameInstance.gameSize.Width - hitbox.v2.X, 0);
-                hitbox += toAdd;
             }
             else
             {
                 toAdd = new Vecteur2D(deltaT * xSpeed, 0);
-                hitbox += toAdd;
             }
-            foreach (Enemy enemy in gameInstance.gameObjects.OfType<Enemy>()) enemy.position += toAdd;
+
+            return toAdd;
         }
 
         public override bool IsColliding(GameObject go)

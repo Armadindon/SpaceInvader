@@ -70,7 +70,8 @@ namespace SpaceInvaders
             if (activeMissil != null && !activeMissil.IsAlive()) this.activeMissil = null;
             if (Game.game.keyPressed.Contains(Keys.Right) || Game.game.keyPressed.Contains(Keys.Left))
             {
-                if(!handleOutOfBound(deltaT)) position += determineMove(deltaT);
+                handleOutOfBound(deltaT);
+                position += determineMove(deltaT);
             }
             if (Game.game.keyPressed.Contains(Keys.Space) && activeMissil == null)
             {
@@ -93,7 +94,7 @@ namespace SpaceInvaders
             return new Vecteur2D(-PlayerSpeed * deltaT, 0);
         }
 
-        private bool handleOutOfBound(double deltaT)
+        private void handleOutOfBound(double deltaT)
         {
             if (position.X + PlayerSpeed * deltaT > Game.game.gameSize.Width - sprite.Draw().Width)
             {
@@ -103,11 +104,6 @@ namespace SpaceInvaders
             {
                 position = new Vecteur2D(0, position.Y);
             }
-            else
-            {
-                return false;
-            }
-            return true;
         }
 
         public override Teams whichTeam()

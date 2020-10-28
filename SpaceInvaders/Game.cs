@@ -48,6 +48,8 @@ namespace SpaceInvaders
         /// </summary>
         public HashSet<Keys> keyPressed = new HashSet<Keys>();
 
+        private bool pause = false;
+
         #endregion
 
         #region static fields (helpers)
@@ -118,6 +120,7 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            if (pause) g.DrawString("Jeu en pause", defaultFont, blackBrush, 20f, 20f);
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
@@ -143,6 +146,8 @@ namespace SpaceInvaders
         /// </summary>
         public void Update(double deltaT)
         {
+            if (handlePause()) return;
+
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
@@ -156,9 +161,16 @@ namespace SpaceInvaders
             // remove dead objects
             int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
             if (removed > 0) enemyGroup.resizeHitbox();
-
             // release pressed keys
             ReleaseKeys();
+        }
+
+
+        private bool handlePause()
+        {
+            if (keyPressed.Contains(Keys.Escape)) pause = !pause;
+            if(pause) ReleaseKeys();
+            return pause;
         }
         #endregion
     }

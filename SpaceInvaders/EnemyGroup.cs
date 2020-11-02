@@ -9,7 +9,7 @@ namespace SpaceInvaders
     class EnemyGroup : GameObject
     {
         Rectangle hitbox;
-        private double xSpeed = 15;
+        private double xSpeed = 20;
         private double ySpeed = Game.game.gameSize.Height / 16;
 
         double enemyOffset = 10;
@@ -42,6 +42,7 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
+            handleCollisions(gameInstance.gameObjects);
             Vecteur2D toAdd = determineToAdd(gameInstance, deltaT);
             if( hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
             {
@@ -55,12 +56,25 @@ namespace SpaceInvaders
             foreach (Enemy enemy in gameInstance.gameObjects.OfType<Enemy>()) enemy.position += toAdd;
         }
 
+        private void handleCollisions(HashSet<GameObject> objects)
+        {
+            foreach(GameObject gameObject in objects.Where((go) => { return go is Player || go is Bunker; }))
+            {
+                Console.WriteLine(gameObject);
+                if (gameObject.IsColliding(this))
+                {
+                    gameObject.collision(this);
+                }
+            }
+        }
+
         private Vecteur2D determineToAdd(Game gameInstance, double deltaT)
         {
             Vecteur2D toAdd;
             if (hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
             {
                 toAdd = new Vecteur2D((xSpeed < 0) ? 1 : -1, ySpeed); // Gère la fin de l'écran
+                xSpeed *= 1.5;
             }
             else if (hitbox.v1.X + xSpeed * deltaT < 0)
             {

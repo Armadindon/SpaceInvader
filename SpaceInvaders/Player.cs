@@ -20,7 +20,7 @@ namespace SpaceInvaders
 
         private Missil activeMissil = null;
 
-        private int lives = 1;
+        private int lives = 500;
 
 
         public Player(Vecteur2D position)
@@ -113,7 +113,8 @@ namespace SpaceInvaders
 
         public override bool collision(GameObject go)
         {
-            //lives--;
+            if (go is EnemyGroup) lives -= int.MaxValue;
+            else lives--;
             return true;
         }
 

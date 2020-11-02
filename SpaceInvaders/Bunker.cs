@@ -11,6 +11,7 @@ namespace SpaceInvaders
     {
         private Sprite sprite = new Sprite(Properties.Resources.bunker);
         Vecteur2D position;
+        private bool alive =true;
 
         public static void generateBunkers(Game instance, int number)
         {
@@ -34,7 +35,12 @@ namespace SpaceInvaders
 
         public override bool collision(GameObject go)
         {
-            sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
+            if (go is EnemyGroup)
+            {
+                alive = false;
+                Console.Out.WriteLine("Oof");
+            }
+            else sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
             return true;
         }
 
@@ -57,13 +63,14 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return true;
+            return alive;
         }
 
         public override bool IsColliding(GameObject go)
         {
             if (whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox()))
             {
+                if (go is EnemyGroup) return true;
                 return sprite.pixelColliding(go.GetSprite(), position, go.getHitbox().v1).Count != 0;
             }
             return false;

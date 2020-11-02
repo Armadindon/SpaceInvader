@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Missil.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

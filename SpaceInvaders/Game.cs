@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Data;
 
 namespace SpaceInvaders
 {
@@ -48,7 +49,7 @@ namespace SpaceInvaders
         /// </summary>
         public HashSet<Keys> keyPressed = new HashSet<Keys>();
 
-        private bool pause = false;
+        private GameState state = GameState.RUNNING;
 
         #endregion
 
@@ -120,11 +121,26 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            if (pause) g.DrawString("Jeu en pause", defaultFont, blackBrush, 20f, 20f);
-            foreach (GameObject gameObject in gameObjects)
+            
+            switch (state)
             {
-                gameObject.Draw(this, g);
-                //gameObject.getHitbox().Draw(g, Pens.Red);
+                case GameState.PAUSE:
+                    g.DrawString("Jeu en pause", defaultFont, blackBrush, 20f, 20f);
+                    break;
+                case GameState.RUNNING:
+                    foreach (GameObject gameObject in gameObjects)
+                    {
+                        gameObject.Draw(this, g);
+                        gameObject.getHitbox().Draw(g, Pens.Red);
+                    }
+                    break;
+                case GameState.LOSE:
+                    g.DrawString("Vous avez perdu :c", defaultFont, blackBrush, 20f, 20f);
+                    break;
+
+                case GameState.WIN:
+                    g.DrawString("Vous avez gagné c:", defaultFont, blackBrush, 20f, 20f);
+                    break;
             }
         }
 
@@ -161,16 +177,33 @@ namespace SpaceInvaders
             // remove dead objects
             int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
             if (removed > 0) enemyGroup.resizeHitbox();
+            if(state == GameState.RUNNING) updateStatus();
             // release pressed keys
             ReleaseKeys();
         }
 
 
+        private void updateStatus()
+        {
+            if (Game.game.gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
+            {
+                this.state = GameState.WIN;
+            }
+            if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
+            {
+                this.state = GameState.LOSE;
+            }
+            if(this.state != GameState.RUNNING)
+            {
+                this.gameObjects.Clear(); //Si la partie est finie, on nettoie la liste
+            }
+        }
+
         private bool handlePause()
         {
-            if (keyPressed.Contains(Keys.Escape)) pause = !pause;
-            if(pause) ReleaseKeys();
-            return pause;
+            if (keyPressed.Contains(Keys.Escape)) state = (state == GameState.PAUSE)?GameState.RUNNING:GameState.PAUSE;
+            if(GameState.PAUSE == state) ReleaseKeys();
+            return GameState.PAUSE == state;
         }
         #endregion
     }

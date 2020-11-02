@@ -11,7 +11,7 @@ namespace SpaceInvaders
 
         private Sprite sprite = new Sprite(Properties.Resources.shoot1);
         private Vecteur2D position;
-        private int missilSpeed = 500;
+        private int missilSpeed = 800;
         int lives = 1;
         Teams team;
 

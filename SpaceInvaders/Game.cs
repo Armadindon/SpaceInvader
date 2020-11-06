@@ -153,8 +153,7 @@ namespace SpaceInvaders
             AddNewGameObject(this.player);
             AddNewGameObject(this.enemyGroup);
             Bunker.generateBunkers(this, 3);
-
-
+            state = GameState.RUNNING;
         }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace SpaceInvaders
             // remove dead objects
             int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
             if (removed > 0) enemyGroup.resizeHitbox();
-            if(state == GameState.RUNNING) updateStatus();
+            updateStatus();
             // release pressed keys
             ReleaseKeys();
         }
@@ -185,18 +184,25 @@ namespace SpaceInvaders
 
         private void updateStatus()
         {
-            if (Game.game.gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
+            if(state == GameState.RUNNING)
             {
-                this.state = GameState.WIN;
+                if (Game.game.gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
+                {
+                    this.state = GameState.WIN;
+                }
+                if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
+                {
+                    this.state = GameState.LOSE;
+                }
+                if (this.state != GameState.RUNNING)
+                {
+                    this.gameObjects.Clear(); //Si la partie est finie, on nettoie la liste
+                }
             }
-            if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
-            {
-                this.state = GameState.LOSE;
+            else{
+                if (keyPressed.Contains(Keys.Space)) initGame();
             }
-            if(this.state != GameState.RUNNING)
-            {
-                this.gameObjects.Clear(); //Si la partie est finie, on nettoie la liste
-            }
+
         }
 
         private bool handlePause()

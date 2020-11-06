@@ -41,7 +41,8 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            if(Game.random.Next(0,100000) < 10)
+            Console.WriteLine(100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000);
+            if (Game.random.Next(0,100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000) < 10)
             {
                 Missil missil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Enemy);
                 gameInstance.AddNewGameObject(missil);

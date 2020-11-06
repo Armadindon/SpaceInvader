@@ -60,7 +60,6 @@ namespace SpaceInvaders
         {
             foreach(GameObject gameObject in objects.Where((go) => { return go is Player || go is Bunker; }))
             {
-                Console.WriteLine(gameObject);
                 if (gameObject.IsColliding(this))
                 {
                     gameObject.collision(this);

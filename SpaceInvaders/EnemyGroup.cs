@@ -73,7 +73,7 @@ namespace SpaceInvaders
             if (hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
             {
                 toAdd = new Vecteur2D((xSpeed < 0) ? 1 : -1, ySpeed); // Gère la fin de l'écran
-                xSpeed *= 1.5;
+                xSpeed *= 1.25;
             }
             else if (hitbox.v1.X + xSpeed * deltaT < 0)
             {

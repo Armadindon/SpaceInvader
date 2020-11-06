@@ -65,6 +65,11 @@ namespace SpaceInvaders
             return  whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
         }
 
+        public int getLives()
+        {
+            return lives;
+        }
+
         public override void Update(Game gameInstance, double deltaT)
         {
             if (activeMissil != null && !activeMissil.IsAlive()) this.activeMissil = null;

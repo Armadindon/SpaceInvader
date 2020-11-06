@@ -128,6 +128,7 @@ namespace SpaceInvaders
                     g.DrawString("Jeu en pause", defaultFont, blackBrush, 20f, 20f);
                     break;
                 case GameState.RUNNING:
+                    g.DrawString("Nombre de vies : " + player.getLives(), defaultFont, blackBrush, 20f, 0f);
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);

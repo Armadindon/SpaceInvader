@@ -42,10 +42,6 @@ namespace SpaceInvaders
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
             graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
-            //Draw Hitbox
-            //graphics.DrawRectangle(Pens.Red, (float)position.X, (float)position.Y, sprite.Draw().Width, sprite.Draw().Height);
-            //Draw Player Camp Hitbox
-            //graphics.DrawRectangle(Pens.Red, 0  , (float)(gameInstance.gameSize.Width * 0.75), gameInstance.gameSize.Width, (float)(gameInstance.gameSize.Height * 0.25));
 
         }
 
@@ -119,7 +115,11 @@ namespace SpaceInvaders
         public override bool collision(GameObject go)
         {
             if (go is EnemyGroup) lives -= int.MaxValue;
-            else lives--;
+            else
+            {
+                sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
+                lives--;
+            }
             return true;
         }
 

@@ -38,7 +38,6 @@ namespace SpaceInvaders
             if (go is EnemyGroup)
             {
                 alive = false;
-                Console.Out.WriteLine("Oof");
             }
             else sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
             return true;

@@ -67,6 +67,7 @@ namespace SpaceInvaders
 
         public override bool collision(GameObject go)
         {
+            sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
             lives--;
             return true;
         }

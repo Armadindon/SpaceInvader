@@ -58,12 +58,14 @@ namespace SpaceInvaders
                         && !b.image.GetPixel((int)(position.X - positionB.X + x), (int)(position.Y - positionB.Y + y)).Equals(Color.FromArgb(0, 255, 255, 255));
         }
 
-        public void deleteCollidingPixels(Sprite b, Vecteur2D position, Vecteur2D positionB)
+        public int deleteCollidingPixels(Sprite b, Vecteur2D position, Vecteur2D positionB)
         {
-            foreach(Vecteur2D pixel in pixelColliding(b, position, positionB))
+            List < Vecteur2D > collidingPixels = pixelColliding(b, position, positionB);
+            foreach (Vecteur2D pixel in collidingPixels)
             {
                 image.SetPixel((int)pixel.X, (int)pixel.Y, Color.FromArgb(0,255,255,255));
             }
+            return collidingPixels.Count();
         }
     }
 }

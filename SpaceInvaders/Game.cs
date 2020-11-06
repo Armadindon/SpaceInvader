@@ -132,7 +132,7 @@ namespace SpaceInvaders
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);
-                        gameObject.getHitbox().Draw(g, Pens.Red);
+                        //gameObject.getHitbox().Draw(g, Pens.Red);
                     }
                     break;
                 case GameState.LOSE:

@@ -84,5 +84,9 @@ namespace SpaceInvaders
         {
             return Teams.Props;
         }
+
+        public override void Die()
+        {
+        }
     }
 }

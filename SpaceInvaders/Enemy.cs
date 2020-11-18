@@ -76,5 +76,11 @@ namespace SpaceInvaders
         {
             return sprite;
         }
+
+        public override void Die()
+        {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.explosion);
+            player.Play();
+        }
     }
 }

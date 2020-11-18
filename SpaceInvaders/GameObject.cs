@@ -47,5 +47,7 @@ namespace SpaceInvaders
 
         public abstract Sprite GetSprite();
 
+        public abstract void Die();
+
     }
 }

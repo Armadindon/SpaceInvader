@@ -87,5 +87,9 @@ namespace SpaceInvaders
         {
             return team;
         }
+
+        public override void Die()
+        {
+        }
     }
 }

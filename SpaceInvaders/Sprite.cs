@@ -17,7 +17,7 @@ namespace SpaceInvaders
 
         public Sprite(Bitmap image)
         {
-            this.image = image;
+            this.image = (Bitmap) image.Clone(); //Pour éviter qu'un changement sur un bitmap affecte les autres
         }
 
         public Sprite(Sprite sprite) : this(sprite.image) { }

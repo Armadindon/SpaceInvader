@@ -42,7 +42,6 @@ namespace SpaceInvaders
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
             graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
-
         }
 
         public override Rectangle getHitbox()
@@ -83,6 +82,8 @@ namespace SpaceInvaders
         private void fireMissil(Game gameInstance)
         {
             this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.laser);
+            player.Play();
             gameInstance.AddNewGameObject(this.activeMissil);
         }
 
@@ -126,6 +127,11 @@ namespace SpaceInvaders
         public override Sprite GetSprite()
         {
             return sprite;
+        }
+
+        public override void Die()
+        {
+            throw new NotImplementedException();
         }
     }
 }

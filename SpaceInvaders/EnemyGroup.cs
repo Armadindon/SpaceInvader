@@ -131,5 +131,9 @@ namespace SpaceInvaders
         {
             return null;
         }
+
+        public override void Die()
+        {
+        }
     }
 }

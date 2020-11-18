@@ -33,6 +33,16 @@ namespace SpaceInvaders
             pendingNewGameObjects.Add(gameObject);
         }
 
+        public void RemoveDeadObjects()
+        {
+            IEnumerable<GameObject> toRemove = gameObjects.Where(gameObject => !gameObject.IsAlive());
+            foreach (GameObject g in toRemove){
+                g.Die();
+            }
+            int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+            if (removed > 0) enemyGroup.resizeHitbox();
+        }
+
         public Player player;
 
         public EnemyGroup enemyGroup;
@@ -132,7 +142,7 @@ namespace SpaceInvaders
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);
-                        //gameObject.getHitbox().Draw(g, Pens.Red);
+                        gameObject.getHitbox().Draw(g, Pens.Red);
                     }
                     break;
                 case GameState.LOSE:
@@ -175,8 +185,7 @@ namespace SpaceInvaders
             }
 
             // remove dead objects
-            int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
-            if (removed > 0) enemyGroup.resizeHitbox();
+            RemoveDeadObjects();
             updateStatus();
             // release pressed keys
             ReleaseKeys();

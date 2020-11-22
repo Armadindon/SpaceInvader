@@ -41,7 +41,6 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            Console.WriteLine(100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000);
             if (Game.random.Next(0,100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000) < 10)
             {
                 Missil missil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Enemy);
@@ -80,6 +79,7 @@ namespace SpaceInvaders
         public override void Die()
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.explosion);
+            if(Game.random.Next(0,11) < 1) Game.game.AddNewGameObject(new Bonus(new Sprite(Properties.Resources.bonus), position));
             player.Play();
         }
     }

@@ -139,10 +139,11 @@ namespace SpaceInvaders
                     break;
                 case GameState.RUNNING:
                     g.DrawString("Nombre de vies : " + player.getLives(), defaultFont, blackBrush, 20f, 0f);
+                    if(player.isBonusActive()) g.DrawString(player.GetBonus().ToString(), defaultFont, blackBrush, gameSize.Width - 250f,  0f);
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);
-                        gameObject.getHitbox().Draw(g, Pens.Red);
+                        //gameObject.getHitbox().Draw(g, Pens.Red);
                     }
                     break;
                 case GameState.LOSE:

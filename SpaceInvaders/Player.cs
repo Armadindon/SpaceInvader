@@ -20,6 +20,10 @@ namespace SpaceInvaders
 
         private Missil activeMissil = null;
 
+        private BonusType activeBonus;
+
+        private double remainingTimeBonus = 0;
+
         private int lives = 500;
 
 
@@ -77,17 +81,29 @@ namespace SpaceInvaders
             {
                 fireMissil(gameInstance);
             }
+            if(remainingTimeBonus > 0) //Si un bonus est actif
+            {
+                remainingTimeBonus -= deltaT;
+            }
         }
 
         private void fireMissil(Game gameInstance)
         {
-            this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
+            if(remainingTimeBonus > 0 && activeBonus == BonusType.SUPER_MISSIL) this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player, 3);
+            else this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
+
+            if (remainingTimeBonus > 0 && activeBonus == BonusType.MULTIPLE_SHOT)
+            {
+                //On ajoute deux autres missiles
+                gameInstance.AddNewGameObject(new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2 - 20f, 0), Teams.Player));
+                gameInstance.AddNewGameObject(new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2 + 20f, 0), Teams.Player));
+            }
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.laser);
             player.Play();
             gameInstance.AddNewGameObject(this.activeMissil);
         }
 
-        private Vecteur2D determineMove( double deltaT)
+        private Vecteur2D determineMove(double deltaT)
         {
             if (Game.game.keyPressed.Contains(Keys.Right))
             {
@@ -119,7 +135,7 @@ namespace SpaceInvaders
             else
             {
                 sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
-                lives--;
+                if(remainingTimeBonus <= 0 || activeBonus != BonusType.INVINCIBILITY) lives--;
             }
             return true;
         }
@@ -131,6 +147,27 @@ namespace SpaceInvaders
 
         public override void Die()
         {
+        }
+
+        public void addBonus(BonusType type, double time)
+        {
+            if (type == BonusType.ONE_LIFE)
+            {
+                lives++;
+                return;
+            }
+            this.activeBonus = type;
+            this.remainingTimeBonus = time;
+        }
+
+        public bool isBonusActive()
+        {
+            return remainingTimeBonus > 0;
+        }
+
+        public BonusType GetBonus()
+        {
+            return activeBonus;
         }
     }
 }

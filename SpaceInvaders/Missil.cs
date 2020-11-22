@@ -22,6 +22,11 @@ namespace SpaceInvaders
             if (team == Teams.Player) missilSpeed *= -1; //On ira vers le haut
         }
 
+        public Missil(Vecteur2D position, Teams team, int lives) : this(position, team)
+        {
+            this.lives = lives;
+        }
+
         public override bool collision(GameObject go)
         {
             lives--;
@@ -47,7 +52,7 @@ namespace SpaceInvaders
 
         public override bool IsAlive()
         {
-            return  lives > 0 && (position.X > 0 && position.X < Game.game.gameSize.Width) && (position.Y > 0 && position.Y < Game.game.gameSize.Height);
+            return lives > 0 && (position.X > 0 && position.X < Game.game.gameSize.Width) && (position.Y > 0 && position.Y < Game.game.gameSize.Height);
         }
 
         public override bool IsColliding(GameObject go)

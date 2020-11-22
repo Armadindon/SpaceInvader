@@ -4,6 +4,7 @@
     {
         Player,
         Enemy,
-        Props
+        Props,
+        Other
     }
 }

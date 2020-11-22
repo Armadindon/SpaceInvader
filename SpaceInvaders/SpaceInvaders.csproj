@@ -61,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bonus.cs" />
+    <Compile Include="BonusType.cs" />
     <Compile Include="Bunker.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyGroup.cs" />

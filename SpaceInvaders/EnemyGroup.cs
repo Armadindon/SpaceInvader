@@ -19,7 +19,7 @@ namespace SpaceInvaders
         public EnemyGroup()
         {
             //Constructeur par défaut
-            Enemy[] scheme = { new Enemy(0, 0), new Enemy(new Sprite(Properties.Resources.ship3), 0, 0), new Enemy(new Sprite(Properties.Resources.ship5), 0, 0), new Enemy(new Sprite(Properties.Resources.ship6), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7), 0, 0) }; 
+            Enemy[] scheme = { new Enemy(0, 0), new Enemy(new Sprite(Properties.Resources.ship3, Properties.Resources.ship3bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship5, Properties.Resources.ship5bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship6, Properties.Resources.ship6bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0) }; 
             for(int i=0; i < 7; i++)
             {
                 for(int j=0; j < 6; j++)

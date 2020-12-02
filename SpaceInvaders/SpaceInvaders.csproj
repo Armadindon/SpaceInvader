@@ -161,6 +161,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ship9bis.png" />
+    <None Include="Resources\ship8bis.png" />
+    <None Include="Resources\ship7bis.png" />
+    <None Include="Resources\ship6bis.png" />
+    <None Include="Resources\ship5bis.png" />
+    <None Include="Resources\ship3bis.png" />
+    <None Include="Resources\ship2bis.png" />
+    <None Include="Resources\ship1bis.png" />
     <None Include="Resources\explosion.wav" />
     <Content Include="Resources\laser.wav" />
   </ItemGroup>

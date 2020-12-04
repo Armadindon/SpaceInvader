@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace SpaceInvaders
 {
@@ -27,7 +26,7 @@ namespace SpaceInvaders
         public override bool collision(GameObject go)
         {
             lives--;
-            if(go is Player) ((Player) go).addBonus(type, 6);
+            if (go is Player) ((Player)go).addBonus(type, 6);
             return true;
         }
 

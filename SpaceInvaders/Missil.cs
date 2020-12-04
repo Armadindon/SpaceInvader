@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 
 namespace SpaceInvaders
 {
@@ -36,7 +32,7 @@ namespace SpaceInvaders
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
-            graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
+            graphics.DrawImage(sprite.Draw(), (float)position.X, (float)position.Y);
         }
 
         public override Rectangle getHitbox()
@@ -57,10 +53,10 @@ namespace SpaceInvaders
 
         public override bool IsColliding(GameObject go)
         {
-            
-            if(whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox()))
+
+            if (whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox()))
             {
-                return sprite.pixelColliding(go.GetSprite(),position,go.getHitbox().v1).Count != 0;
+                return sprite.pixelColliding(go.GetSprite(), position, go.getHitbox().v1).Count != 0;
             }
             return false;
         }

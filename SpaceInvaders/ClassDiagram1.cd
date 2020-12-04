@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SpaceInvaders.Game">
-    <Position X="8.75" Y="0.5" Width="1.5" />
+    <Position X="9" Y="1.25" Width="1.5" />
     <Members>
       <Field Name="blackBrush" Hidden="true" />
       <Method Name="CreateGame" Hidden="true" />
@@ -14,85 +14,76 @@
       <Field Name="pendingNewGameObjects" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAwAAAiCAAAABhAAAAACAAAAAEAAAAAIAkAAAAAAAAA=</HashCode>
+      <HashCode>AAwAAAiCAAABBhAAAAACAAAAAEBAAAANAkUAAAAAAAA=</HashCode>
       <FileName>Game.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.GameObject">
-    <Position X="2.75" Y="2.75" Width="1.5" />
+    <Position X="5" Y="1.25" Width="1.5" />
     <Members>
       <Method Name="GameObject" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQQAgAAAAAAAEgAgQAAAAAAAAAAAAAABAAAAAAIAAAA=</HashCode>
       <FileName>GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Player">
-    <Position X="4.75" Y="2.5" Width="1.5" />
+    <Position X="7" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CQQAAAAAAAAAAgAAAAAAIABAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CQQAgAAgABAAEgAgQAAAoBBAABIAAAABACFCAAIAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Bunker">
-    <Position X="0.5" Y="2.75" Width="1.5" />
+    <Position X="3" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQQAgAAAAAAAEgAgQAAAIAAABBBAAAABAAAAAAIAAAA=</HashCode>
       <FileName>Bunker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Enemy">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="1" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAIAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQQAgAAAAAAAEgAgQAAAIAAAABIAAAABAAAAAAIAAAA=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Sprite">
-    <Position X="8.5" Y="5.75" Width="1.5" />
+    <Position X="3.25" Y="1.25" Width="1.5" />
     <Members>
       <Field Name="image" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAFAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQCAAAAAAAAgAAAQAAAAAAEAAAAAAgAAAAAAAEAAA=</HashCode>
       <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Orientation="Left" Position="0.1" />
   </Class>
   <Class Name="SpaceInvaders.Missil">
-    <Position X="2.75" Y="5.25" Width="1.5" />
+    <Position X="5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAYAAAABAQAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQQAgAAAAAAAEgAgQAAAYAAAABIQAAABAAAAAAIAAAI=</HashCode>
       <FileName>Missil.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Rectangle">
-    <Position X="8.5" Y="3.75" Width="1.5" />
+    <Position X="1" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAABAQAAAAAAAIAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAgAARAAAAAAABAQAAEAAAAIAACAAACA=</HashCode>
       <FileName>Rectangle.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Orientation="Left" Position="0.196" />
   </Class>
   <Class Name="SpaceInvaders.EnemyGroup">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="9" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAQAAAAAAgAAAAAAAAABAAAAAgABAAAAAABAAAA=</HashCode>
+      <HashCode>AQQAgAQAAAAAEgEgQAAAAAEBAAAAAgABAAAAAAJAAIA=</HashCode>
       <FileName>EnemyGroup.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="SpaceInvaders.Shape">
-    <Position X="6.75" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Shape.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Enum Name="SpaceInvaders.Teams">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="7" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <HashCode>BAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAA=</HashCode>
       <FileName>Teams.cs</FileName>
     </TypeIdentifier>
   </Enum>

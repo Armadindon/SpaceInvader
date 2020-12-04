@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Diagnostics;
-using System.Windows.Forms;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
@@ -36,7 +34,8 @@ namespace SpaceInvaders
         public void RemoveDeadObjects()
         {
             IEnumerable<GameObject> toRemove = gameObjects.Where(gameObject => !gameObject.IsAlive());
-            foreach (GameObject g in toRemove){
+            foreach (GameObject g in toRemove)
+            {
                 g.Die();
             }
             int removed = gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
@@ -131,7 +130,7 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            
+
             switch (state)
             {
                 case GameState.PAUSE:
@@ -139,7 +138,7 @@ namespace SpaceInvaders
                     break;
                 case GameState.RUNNING:
                     g.DrawString("Nombre de vies : " + player.getLives(), defaultFont, blackBrush, 20f, 0f);
-                    if(player.isBonusActive()) g.DrawString(player.GetBonus().ToString(), defaultFont, blackBrush, gameSize.Width - 250f,  0f);
+                    if (player.isBonusActive()) g.DrawString(player.GetBonus().ToString(), defaultFont, blackBrush, gameSize.Width - 250f, 0f);
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);
@@ -183,7 +182,7 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Update(this, deltaT);
-                if(gameObject.GetSprite() != null) gameObject.GetSprite().update(deltaT);
+                if (gameObject.GetSprite() != null) gameObject.GetSprite().update(deltaT);
             }
 
             // remove dead objects
@@ -196,7 +195,7 @@ namespace SpaceInvaders
 
         private void updateStatus()
         {
-            if(state == GameState.RUNNING)
+            if (state == GameState.RUNNING)
             {
                 if (Game.game.gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
                 {
@@ -211,7 +210,8 @@ namespace SpaceInvaders
                     this.gameObjects.Clear(); //Si la partie est finie, on nettoie la liste
                 }
             }
-            else{
+            else
+            {
                 if (keyPressed.Contains(Keys.Space)) initGame();
             }
 
@@ -219,8 +219,8 @@ namespace SpaceInvaders
 
         private bool handlePause()
         {
-            if (keyPressed.Contains(Keys.Escape)) state = (state == GameState.PAUSE)?GameState.RUNNING:GameState.PAUSE;
-            if(GameState.PAUSE == state) ReleaseKeys();
+            if (keyPressed.Contains(Keys.Escape)) state = (state == GameState.PAUSE) ? GameState.RUNNING : GameState.PAUSE;
+            if (GameState.PAUSE == state) ReleaseKeys();
             return GameState.PAUSE == state;
         }
         #endregion

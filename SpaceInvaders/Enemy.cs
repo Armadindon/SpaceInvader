@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace SpaceInvaders
 {
@@ -26,12 +23,12 @@ namespace SpaceInvaders
 
         public Enemy(Vecteur2D position) : this(new Sprite(Properties.Resources.ship2), position) { }
 
-        public Enemy(double x, double y) : this(new Sprite(Properties.Resources.ship2), new Vecteur2D(x,y)) { }
+        public Enemy(double x, double y) : this(new Sprite(Properties.Resources.ship2), new Vecteur2D(x, y)) { }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
-            graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
+            graphics.DrawImage(sprite.Draw(), (float)position.X, (float)position.Y);
         }
 
         public override bool IsAlive()
@@ -41,7 +38,7 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            if (Game.random.Next(0,100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000) < 10)
+            if (Game.random.Next(0, 100000 - (42 - gameInstance.gameObjects.OfType<Enemy>().Count()) * 1000) < 10)
             {
                 Missil missil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Enemy);
                 gameInstance.AddNewGameObject(missil);
@@ -79,7 +76,7 @@ namespace SpaceInvaders
         public override void Die()
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.explosion);
-            if(Game.random.Next(0,11) < 1) Game.game.AddNewGameObject(new Bonus(new Sprite(Properties.Resources.bonus), position));
+            if (Game.random.Next(0, 11) < 1) Game.game.AddNewGameObject(new Bonus(new Sprite(Properties.Resources.bonus), position));
             player.Play();
         }
     }

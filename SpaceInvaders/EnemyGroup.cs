@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace SpaceInvaders
 {
@@ -13,16 +11,14 @@ namespace SpaceInvaders
         private double ySpeed = Game.game.gameSize.Height / 16;
 
         double enemyOffset = 10;
-        
-
 
         public EnemyGroup()
         {
             //Constructeur par défaut
-            Enemy[] scheme = { new Enemy(0, 0), new Enemy(new Sprite(Properties.Resources.ship3, Properties.Resources.ship3bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship5, Properties.Resources.ship5bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship6, Properties.Resources.ship6bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0) }; 
-            for(int i=0; i < 7; i++)
+            Enemy[] scheme = { new Enemy(0, 0), new Enemy(new Sprite(Properties.Resources.ship3, Properties.Resources.ship3bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship5, Properties.Resources.ship5bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship6, Properties.Resources.ship6bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0), new Enemy(new Sprite(Properties.Resources.ship7, Properties.Resources.ship7bis), 0, 0) };
+            for (int i = 0; i < 7; i++)
             {
-                for(int j=0; j < 6; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     Game.game.AddNewGameObject(new Enemy(scheme[i], Game.game.gameSize.Width / 8 + (enemyOffset + scheme[0].sprite.Draw().Width) * j, Game.game.gameSize.Height / 16 + (enemyOffset + scheme[0].sprite.Draw().Height) * i));
                 }
@@ -44,7 +40,7 @@ namespace SpaceInvaders
         {
             handleCollisions(gameInstance.gameObjects);
             Vecteur2D toAdd = determineToAdd(gameInstance, deltaT);
-            if( hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
+            if (hitbox.v2.X == gameInstance.gameSize.Width || hitbox.v1.X == 0)
             {
                 hitbox += toAdd;
                 xSpeed *= -1;
@@ -58,7 +54,7 @@ namespace SpaceInvaders
 
         private void handleCollisions(HashSet<GameObject> objects)
         {
-            foreach(GameObject gameObject in objects.Where((go) => { return go is Player || go is Bunker; }))
+            foreach (GameObject gameObject in objects.Where((go) => { return go is Player || go is Bunker; }))
             {
                 if (gameObject.IsColliding(this))
                 {
@@ -116,12 +112,12 @@ namespace SpaceInvaders
             Vecteur2D min = new Vecteur2D(int.MaxValue, int.MaxValue);
             Vecteur2D max = new Vecteur2D();
 
-            foreach(Enemy enemy in Game.game.gameObjects.OfType<Enemy>())
+            foreach (Enemy enemy in Game.game.gameObjects.OfType<Enemy>())
             {
                 if (enemy.position.X < min.X) min = new Vecteur2D(enemy.position.X, min.Y);
                 if (enemy.position.Y < min.Y) min = new Vecteur2D(min.X, enemy.position.Y);
-                if (enemy.position.X + enemy.sprite.Draw().Width > max.X ) max = new Vecteur2D(enemy.position.X + enemy.sprite.Draw().Width, max.Y);
-                if (enemy.position.Y + enemy.sprite.Draw().Height > max.Y) max = new Vecteur2D(max.X , enemy.position.Y + enemy.sprite.Draw().Height);
+                if (enemy.position.X + enemy.sprite.Draw().Width > max.X) max = new Vecteur2D(enemy.position.X + enemy.sprite.Draw().Width, max.Y);
+                if (enemy.position.Y + enemy.sprite.Draw().Height > max.Y) max = new Vecteur2D(max.X, enemy.position.Y + enemy.sprite.Draw().Height);
 
             }
             this.hitbox = new Rectangle(min, max);

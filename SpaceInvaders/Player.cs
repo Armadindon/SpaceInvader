@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using System.Configuration;
 
 namespace SpaceInvaders
 {
@@ -33,9 +27,9 @@ namespace SpaceInvaders
             this.position = position;
         }
 
-        public Player(double x, double y): this(new Vecteur2D(x, y)) { }
+        public Player(double x, double y) : this(new Vecteur2D(x, y)) { }
 
-        public Player() : this(0,0) 
+        public Player() : this(0, 0)
         {
             Bitmap playerSprite = Properties.Resources.ship1;
             Vecteur2D pos = new Vecteur2D((Game.game.gameSize.Width / 2) - (playerSprite.Width), Game.game.gameSize.Height - (2 * playerSprite.Height));
@@ -45,7 +39,7 @@ namespace SpaceInvaders
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             sprite.Draw().SetResolution(graphics.DpiX, graphics.DpiY);
-            graphics.DrawImage(sprite.Draw(), (float) position.X, (float) position.Y);
+            graphics.DrawImage(sprite.Draw(), (float)position.X, (float)position.Y);
         }
 
         public override Rectangle getHitbox()
@@ -61,7 +55,7 @@ namespace SpaceInvaders
 
         public override bool IsColliding(GameObject go)
         {
-            return  whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
+            return whichTeam() != go.whichTeam() && getHitbox().intersect(go.getHitbox());
         }
 
         public int getLives()
@@ -81,7 +75,7 @@ namespace SpaceInvaders
             {
                 fireMissil(gameInstance);
             }
-            if(remainingTimeBonus > 0) //Si un bonus est actif
+            if (remainingTimeBonus > 0) //Si un bonus est actif
             {
                 remainingTimeBonus -= deltaT;
             }
@@ -89,7 +83,7 @@ namespace SpaceInvaders
 
         private void fireMissil(Game gameInstance)
         {
-            if(remainingTimeBonus > 0 && activeBonus == BonusType.SUPER_MISSIL) this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player, 3);
+            if (remainingTimeBonus > 0 && activeBonus == BonusType.SUPER_MISSIL) this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player, 3);
             else this.activeMissil = new Missil(position + new Vecteur2D(sprite.Draw().Width / 2 - Properties.Resources.shoot1.Width / 2, 0), Teams.Player);
 
             if (remainingTimeBonus > 0 && activeBonus == BonusType.MULTIPLE_SHOT)
@@ -135,7 +129,7 @@ namespace SpaceInvaders
             else
             {
                 sprite.deleteCollidingPixels(go.GetSprite(), position, go.getHitbox().v1);
-                if(remainingTimeBonus <= 0 || activeBonus != BonusType.INVINCIBILITY) lives--;
+                if (remainingTimeBonus <= 0 || activeBonus != BonusType.INVINCIBILITY) lives--;
             }
             return true;
         }

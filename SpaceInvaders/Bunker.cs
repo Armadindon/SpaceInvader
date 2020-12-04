@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Drawing;
 
 namespace SpaceInvaders
 {
@@ -11,18 +6,18 @@ namespace SpaceInvaders
     {
         private Sprite sprite = new Sprite(Properties.Resources.bunker);
         Vecteur2D position;
-        private bool alive =true;
+        private bool alive = true;
 
         public static void generateBunkers(Game instance, int number)
         {
             Bitmap sprite = Properties.Resources.bunker;
             Bitmap playerSprite = Properties.Resources.ship1;
             double spacing = 50;
-            double totalSize = spacing * (number-1) + sprite.Width * number;
+            double totalSize = spacing * (number - 1) + sprite.Width * number;
 
-            for(int i = 0; i < number; i++)
+            for (int i = 0; i < number; i++)
             {
-                instance.AddNewGameObject(new Bunker(instance.gameSize.Width / 4 + i * (sprite.Width + spacing), instance.gameSize.Height - (playerSprite.Height*3 + spacing + sprite.Height)));
+                instance.AddNewGameObject(new Bunker(instance.gameSize.Width / 4 + i * (sprite.Width + spacing), instance.gameSize.Height - (playerSprite.Height * 3 + spacing + sprite.Height)));
             }
         }
 

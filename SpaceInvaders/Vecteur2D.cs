@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SpaceInvaders
 {
@@ -25,12 +22,12 @@ namespace SpaceInvaders
 
         public Vecteur2D(Vecteur2D v) : this(v.X, v.Y) { }
 
-        public static Vecteur2D operator+ (Vecteur2D v1, Vecteur2D v2)
+        public static Vecteur2D operator +(Vecteur2D v1, Vecteur2D v2)
         {
             return new Vecteur2D(v1.X + v2.X, v1.Y + v2.Y);
         }
 
-        public static Vecteur2D operator- (Vecteur2D v1, Vecteur2D v2)
+        public static Vecteur2D operator -(Vecteur2D v1, Vecteur2D v2)
         {
             return new Vecteur2D(v1.X - v2.X, v1.Y - v2.Y);
         }
@@ -40,17 +37,17 @@ namespace SpaceInvaders
             return new Vecteur2D(v.X - 1, v.Y - 1);
         }
 
-        public static Vecteur2D operator* (Vecteur2D v, double scalaire)
+        public static Vecteur2D operator *(Vecteur2D v, double scalaire)
         {
             return new Vecteur2D(v.X * scalaire, v.Y * scalaire);
         }
 
-        public static Vecteur2D operator* (double scalaire, Vecteur2D v)
+        public static Vecteur2D operator *(double scalaire, Vecteur2D v)
         {
             return new Vecteur2D(v.X * scalaire, v.Y * scalaire);
         }
 
-        public static Vecteur2D operator/ (Vecteur2D v, double scalaire)
+        public static Vecteur2D operator /(Vecteur2D v, double scalaire)
         {
             return new Vecteur2D(v.X / scalaire, v.Y / scalaire);
         }

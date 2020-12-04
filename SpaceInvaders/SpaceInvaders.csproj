@@ -75,6 +75,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="LevelController.cs" />
     <Compile Include="LineSchematic.cs" />
     <Compile Include="Missil.cs" />
     <Compile Include="Player.cs" />

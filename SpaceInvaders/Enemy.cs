@@ -9,21 +9,23 @@ namespace SpaceInvaders
         public Vecteur2D position;
         public int lives = 1;
 
-        public Enemy(Sprite sprite, Vecteur2D position)
+        public Enemy(Sprite sprite, Vecteur2D position, int lives)
         {
             this.sprite = sprite;
             this.position = position;
+            this.lives = lives;
         }
 
-        public Enemy(Sprite sprite, double x, double y) : this(sprite, new Vecteur2D(x, y)) { }
+        public Enemy(Sprite sprite, double x, double y) : this(sprite, new Vecteur2D(x, y), 1) { }
 
-        public Enemy(Enemy enemy, Vecteur2D position) : this(new Sprite(enemy.sprite), position) { }
+        public Enemy(Enemy enemy, Vecteur2D position) : this(new Sprite(enemy.sprite), position, enemy.lives) { }
+        public Enemy(Enemy enemy, Vecteur2D position, int lives) : this(new Sprite(enemy.sprite), position, lives) { }
 
-        public Enemy(Enemy enemy, double x, double y) : this(new Sprite(enemy.sprite), x, y) { }
+        public Enemy(Enemy enemy, double x, double y) : this(enemy, new Vecteur2D(x,y)) { }
 
-        public Enemy(Vecteur2D position) : this(new Sprite(Properties.Resources.ship2), position) { }
+        public Enemy(Vecteur2D position) : this(new Sprite(Properties.Resources.ship2), position, 1) { }
 
-        public Enemy(double x, double y) : this(new Sprite(Properties.Resources.ship2), new Vecteur2D(x, y)) { }
+        public Enemy(double x, double y) : this(new Sprite(Properties.Resources.ship2), new Vecteur2D(x, y), 1) { }
 
         public override void Draw(Game gameInstance, Graphics graphics)
         {

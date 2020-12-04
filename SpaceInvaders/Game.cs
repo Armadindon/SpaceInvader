@@ -142,7 +142,7 @@ namespace SpaceInvaders
                     foreach (GameObject gameObject in gameObjects)
                     {
                         gameObject.Draw(this, g);
-                        //gameObject.getHitbox().Draw(g, Pens.Red);
+                        gameObject.getHitbox().Draw(g, Pens.Red);
                     }
                     break;
                 case GameState.LOSE:
@@ -197,13 +197,22 @@ namespace SpaceInvaders
         {
             if (state == GameState.RUNNING)
             {
-                if (Game.game.gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
-                {
-                    this.state = GameState.WIN;
+                if (gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
+                 {
+                    //On génère un nouveau EnemyGroup
+                    if (!LevelController.haveNextLevel()) //Si pas de nouveaux enemis n'ont pas été généré = fin de partie
+                    {
+                        this.state = GameState.WIN;
+                    }
+                    else
+                    {
+                        this.enemyGroup = new EnemyGroup();
+                        AddNewGameObject(this.enemyGroup);
+                    }
                 }
                 if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
                 {
-                    this.state = GameState.LOSE;
+                    this.state = GameState.LOSE; 
                 }
                 if (this.state != GameState.RUNNING)
                 {

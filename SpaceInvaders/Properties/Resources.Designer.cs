@@ -91,6 +91,16 @@ namespace SpaceInvaders.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap escape {
+            get {
+                object obj = ResourceManager.GetObject("escape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream explosion {
@@ -105,6 +115,26 @@ namespace SpaceInvaders.Properties {
         internal static System.IO.UnmanagedMemoryStream laser {
             get {
                 return ResourceManager.GetStream("laser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap left_right {
+            get {
+                object obj = ResourceManager.GetObject("left_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Byte[].
+        /// </summary>
+        internal static byte[] Pixellari {
+            get {
+                object obj = ResourceManager.GetObject("Pixellari", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

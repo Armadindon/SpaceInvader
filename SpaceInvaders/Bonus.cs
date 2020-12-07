@@ -8,6 +8,8 @@ namespace SpaceInvaders
 
     class Bonus : GameObject
     {
+        public static double BONUS_TIME = 6d;
+
         private Sprite sprite;
         private Vecteur2D position;
         BonusType type;
@@ -26,7 +28,7 @@ namespace SpaceInvaders
         public override bool collision(GameObject go)
         {
             lives--;
-            if (go is Player) ((Player)go).addBonus(type, 6);
+            if (go is Player) ((Player)go).addBonus(type, BONUS_TIME);
             return true;
         }
 
@@ -71,6 +73,22 @@ namespace SpaceInvaders
         public override Teams whichTeam()
         {
             return Teams.Other;
+        }
+
+        public static String convertToString(BonusType bonus)
+        {
+            switch (bonus)
+            {
+                case BonusType.INVINCIBILITY:
+                    return "Invincibilite";
+
+                case BonusType.MULTIPLE_SHOT:
+                    return "Multi Tir";
+
+                case BonusType.SUPER_MISSIL:
+                    return "Super Missile";
+            }
+            return "";
         }
     }
 }

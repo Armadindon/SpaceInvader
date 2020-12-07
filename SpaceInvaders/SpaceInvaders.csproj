@@ -111,6 +111,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Pixellari.ttf" />
     <None Include="Resources\shoot2.png" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\left-right.png" />
     <None Include="Resources\ship9bis.png" />
     <None Include="Resources\ship8bis.png" />
     <None Include="Resources\ship7bis.png" />
@@ -172,6 +174,7 @@
     <None Include="Resources\ship2bis.png" />
     <None Include="Resources\ship1bis.png" />
     <None Include="Resources\explosion.wav" />
+    <Content Include="Resources\escape.png" />
     <Content Include="Resources\laser.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

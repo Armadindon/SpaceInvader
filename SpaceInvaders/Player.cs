@@ -18,7 +18,7 @@ namespace SpaceInvaders
 
         private double remainingTimeBonus = 0;
 
-        private int lives = 500;
+        private int lives = 3;
 
 
         public Player(Vecteur2D position)
@@ -162,6 +162,11 @@ namespace SpaceInvaders
         public BonusType GetBonus()
         {
             return activeBonus;
+        }
+
+        public double getRemainingTimeBonus()
+        {
+            return remainingTimeBonus;
         }
     }
 }

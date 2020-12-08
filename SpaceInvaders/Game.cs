@@ -9,23 +9,26 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
+    /// <summary>
+    /// Représente le jeu et son état
+    /// </summary>
     class Game
     {
 
         #region GameObjects management
         /// <summary>
-        /// Set of all game objects currently in the game
+        /// Tout les entités actuellement dans le jeu
         /// </summary>
         public HashSet<GameObject> gameObjects = new HashSet<GameObject>();
 
         /// <summary>
-        /// Set of new game objects scheduled for addition to the game
+        /// Entités a ajouter par la suite
         /// </summary>
         private HashSet<GameObject> pendingNewGameObjects = new HashSet<GameObject>();
 
         /// <summary>
-        /// Schedule a new object for addition in the game.
-        /// The new object will be added at the beginning of the next update loop
+        /// Prévoit d'ajouter un objet a la liste
+        /// Il sera ajouté au prochain appel a update
         /// </summary>
         /// <param name="gameObject">object to add</param>
         public void AddNewGameObject(GameObject gameObject)
@@ -33,6 +36,9 @@ namespace SpaceInvaders
             pendingNewGameObjects.Add(gameObject);
         }
 
+        /// <summary>
+        /// Enlève les objets morts
+        /// </summary>
         public void RemoveDeadObjects()
         {
             IEnumerable<GameObject> toRemove = gameObjects.Where(gameObject => !gameObject.IsAlive());
@@ -44,24 +50,36 @@ namespace SpaceInvaders
             if (removed > 0) enemyGroup.resizeHitbox();
         }
 
+        /// <summary>
+        /// L'instance du joueur
+        /// </summary>
         public Player player;
 
+        /// <summary>
+        /// L'instance du groupe d'ennemis
+        /// </summary>
         public EnemyGroup enemyGroup;
         #endregion
 
         #region game technical elements
         /// <summary>
-        /// Size of the game area
+        /// Taille de la zone de jeu
         /// </summary>
         public Size gameSize;
 
         /// <summary>
-        /// State of the keyboard
+        /// Touches utilisés avant l'appel a update
         /// </summary>
         public HashSet<Keys> keyPressed = new HashSet<Keys>();
 
+        /// <summary>
+        /// L'état actuel du jeu
+        /// </summary>
         private GameState state = GameState.STARTING;
 
+        /// <summary>
+        /// Le temps depuis lequel le jeu est lancé
+        /// </summary>
         public double runningTime = 0;
 
         #endregion
@@ -69,36 +87,44 @@ namespace SpaceInvaders
         #region static fields (helpers)
 
         /// <summary>
-        /// Singleton for easy access
+        /// Instance du jeu
         /// </summary>
+        /// <value>Instance du jeu</value>
         public static Game game { get; private set; }
 
         /// <summary>
-        /// A shared black brush
+        /// Brush par défaut
         /// </summary>
         private static Brush blackBrush = new SolidBrush(Color.Black);
 
-
+        /// <summary>
+        /// Collection de font custom (une seul dedans)
+        /// </summary>
         private static readonly PrivateFontCollection Fonts = new PrivateFontCollection();
 
         /// <summary>
-        /// A shared simple font
+        /// La police d'écriture par défaut
         /// </summary>
         private static Font defaultFont;
 
+        /// <summary>
+        /// La police d'écriture par défaut (mais en petit)
+        /// </summary>
         private static Font defaultSmallFont;
 
+        /// <summary>
+        /// Objet random instancié pour tout le jeu
+        /// </summary>
         public static Random random = new Random();
         #endregion
 
 
         #region constructors
         /// <summary>
-        /// Singleton constructor
+        /// Permet de créer l'instance de jeu
         /// </summary>
-        /// <param name="gameSize">Size of the game area</param>
-        /// 
-        /// <returns></returns>
+        /// <param name="gameSize">Taille de la zone de jeu</param>
+        /// <returns>Instance du jeu</returns>
         public static Game CreateGame(Size gameSize)
         {
             //Init de la font
@@ -119,9 +145,9 @@ namespace SpaceInvaders
         }
 
         /// <summary>
-        /// Private constructor
+        /// Permet d'instancier le jeu, en private pour forcer l'utilisation du constructeur
         /// </summary>
-        /// <param name="gameSize">Size of the game area</param>
+        /// <param name="gameSize">Taille de la zone de jeu</param>
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
@@ -132,16 +158,19 @@ namespace SpaceInvaders
         #region methods
 
         /// <summary>
-        /// Force a given key to be ignored in following updates until the user
-        /// explicitily retype it or the system autofires it again.
+        /// Elnlèves les clés qui ont été pressé avant le update
+        /// Force a ré-appuyer
         /// </summary>
-        /// <param name="key">key to ignore</param>
         public void ReleaseKeys()
         {
             keyPressed.Clear();
         }
 
 
+        /// <summary>
+        /// Dessine le jeu quand il est en phase de jeu (justement)
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawRunning(Graphics g)
         {
             g.DrawString("Nombre de vies : " + player.getLives(), defaultFont, blackBrush, 20f, 0f);
@@ -158,15 +187,23 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
-                //gameObject.getHitbox().Draw(g, Pens.Red);
+                //gameObject.getHitbox().Draw(g, Pens.Red); // A décomenter pour voir les hitboxs de tous les objets du jeu
             }
         }
 
+        /// <summary>
+        /// Determines l'opacité afin de créer un effet de clignottement
+        /// </summary>
+        /// <returns>l'opacité entre 0 et 255</returns>
         private int determineOpacity()
         {
-            return Math.Abs(((int)(runningTime * 120) % 510) - 255);
+            return Math.Abs(((int)(runningTime * 120) % 510) - 255); //Permet de faire un clignottement (Le *120 est présent afin d'accélerer le proccessus)
         }
 
+        /// <summary>
+        /// Dessine le jeu quand il est en phase de pause
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawPause(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Jeu en pause", defaultFont);
@@ -175,6 +212,10 @@ namespace SpaceInvaders
             g.DrawString("Appuyer sur Echap pour continuer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
         }
 
+        /// <summary>
+        /// Dessine le jeu quand avant de passer a un nouveau niveau
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawInterLevel(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Prochain niveau : Niveau " + LevelController.getCurrentLevel(), defaultFont);
@@ -183,6 +224,10 @@ namespace SpaceInvaders
             g.DrawString("Appuyer sur Espace pour continuer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
         }
 
+        /// <summary>
+        /// Dessine le jeu quand il est perdu
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawLose(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Game Over", defaultFont);
@@ -191,6 +236,10 @@ namespace SpaceInvaders
             g.DrawString("Appuyer sur Espace pour relancer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
         }
 
+        /// <summary>
+        /// Dessine le jeu quand il est gagné
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawWin(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Vous avez gagne !", defaultFont);
@@ -199,6 +248,10 @@ namespace SpaceInvaders
             g.DrawString("Appuyer sur Espace pour relancer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
         }
 
+        /// <summary>
+        /// Dessine le jeu au lancement (ainsi que le "tuto" du jeu)
+        /// </summary>
+        /// <param name="g">L'endroit ou dessiner</param>
         private void DrawStarting(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Space Invaders", defaultFont);
@@ -231,9 +284,9 @@ namespace SpaceInvaders
         }
 
         /// <summary>
-        /// Draw the whole game
+        /// Dessine le jeu en fonction de son état
         /// </summary>
-        /// <param name="g">Graphics to draw in</param>
+        /// <param name="g">L'endroit ou dessiner</param>
         public void Draw(Graphics g)
         {
             switch (state)
@@ -264,6 +317,9 @@ namespace SpaceInvaders
             }
         }
 
+        /// <summary>
+        /// Initializes le jeu, en effacant son ancien état
+        /// </summary>
         public void initGame()
         {
             //On ajoute le joueur
@@ -276,6 +332,9 @@ namespace SpaceInvaders
         }
 
 
+        /// <summary>
+        /// Met a jour le status de la partie en fonction de l'état des game objects
+        /// </summary>
         private void updateStatus()
         {
             if (gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
@@ -289,6 +348,10 @@ namespace SpaceInvaders
             }
         }
 
+        /// <summary>
+        /// Met a jour le jeu quand il tourne
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handleRun(double deltaT)
         {
             // update each game object
@@ -300,16 +363,23 @@ namespace SpaceInvaders
             // remove dead objects
             RemoveDeadObjects();
             updateStatus();
-            // release pressed keys
-            ReleaseKeys();
+            if (keyPressed.Contains(Keys.Escape)) this.state = GameState.PAUSE;
         }
 
+        /// <summary>
+        /// Met a jour le jeu quand il est en pause
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handlePause(double deltaT)
         {
             if (keyPressed.Contains(Keys.Escape)) this.state = GameState.RUNNING;
         }
 
 
+        /// <summary>
+        /// Met a jour le jeu quand il se lance
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handleStart(double deltaT)
         {
             if (keyPressed.Contains(Keys.Space))
@@ -319,16 +389,28 @@ namespace SpaceInvaders
             }
         }
 
+        /// <summary>
+        /// Met a jour le jeu quand le joueur a gagné
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handleWin(double deltaT)
         {
             if (keyPressed.Contains(Keys.Space)) this.state = GameState.STARTING;
         }
 
+        /// <summary>
+        /// Met a jour le jeu quand le joueur a perdu
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handleLose(double deltaT)
         {
             if (keyPressed.Contains(Keys.Space)) this.state = GameState.STARTING;
         }
 
+        /// <summary>
+        /// Met a jour le jeu avant de lancer un nouveau niveau
+        /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         private void handleInterLevel(double deltaT)
         {
             if (keyPressed.Contains(Keys.Space))
@@ -342,8 +424,9 @@ namespace SpaceInvaders
         }
 
         /// <summary>
-        /// Update game
+        /// Met a jour le jeu en fonction de l'état actuel
         /// </summary>
+        /// <param name="deltaT">Temps passé depuis le dernier appel a update</param>
         public void Update(double deltaT)
         {
             runningTime += deltaT;

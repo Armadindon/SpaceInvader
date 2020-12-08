@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SpaceInvaders
+﻿namespace SpaceInvaders
 {
+    /// <summary>
+    /// Controlle les différent niveau au cours du jeu
+    /// </summary>
     class LevelController
     {
 
+        /// <summary>
+        /// Futur niveau (Ouais le nom de la variable est trompeuse)
+        /// </summary>
         private static int currentLevel = 1;
 
 
+        /// <summary>
+        /// Passe au niveau suivant
+        /// </summary>
         public static void nextLevel()
         {
             switch (currentLevel)
@@ -31,21 +35,35 @@ namespace SpaceInvaders
             currentLevel++;
         }
 
+        /// <summary>
+        /// Permet de récupérer le prochain niveau
+        /// </summary>
+        /// <returns>Numéro du prochain niveau</returns>
         public static int getCurrentLevel()
         {
             return currentLevel;
         }
 
+        /// <summary>
+        /// Retourne au premier niveau
+        /// </summary>
         public static void reset()
         {
             currentLevel = 1;
         }
 
+        /// <summary>
+        /// Permet de savoir si il reste un niveau par la suite
+        /// </summary>
+        /// <returns><c>true</c> si il reste un niveau, <c>false</c> sinon</returns>
         public static bool haveNextLevel()
         {
             return currentLevel < 4;
         }
 
+        /// <summary>
+        /// Permet de générer les enemis du niveau 1
+        /// </summary>
         private static void Level1()
         {
             int verticalOffset = 0;
@@ -63,6 +81,9 @@ namespace SpaceInvaders
                .generateScheme(Game.game, Game.game.gameSize.Width - Game.game.gameSize.Width / 4, new Vecteur2D(Game.game.gameSize.Width / 8, Game.game.gameSize.Height / 8 + verticalOffset));
         }
 
+        /// <summary>
+        /// Permet de générer les enemis du niveau 2
+        /// </summary>
         private static void Level2()
         {
             int verticalOffset = 0;
@@ -85,6 +106,9 @@ namespace SpaceInvaders
                .generateScheme(Game.game, Game.game.gameSize.Width - Game.game.gameSize.Width / 4, new Vecteur2D(Game.game.gameSize.Width / 8, Game.game.gameSize.Height / 8 + verticalOffset));
         }
 
+        /// <summary>
+        /// Permet de générer les enemis du niveau 3
+        /// </summary>
         private static void Level3()
         {
             int verticalOffset = 0;

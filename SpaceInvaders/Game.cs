@@ -108,7 +108,7 @@ namespace SpaceInvaders
             Marshal.Copy(fontdata, 0, data, fontLength);
             Fonts.AddMemoryFont(data, fontLength);
 
-            defaultFont = new Font(Fonts.Families[0],24);
+            defaultFont = new Font(Fonts.Families[0], 24);
             defaultSmallFont = new Font(Fonts.Families[0], 16);
 
             if (game == null)
@@ -153,7 +153,7 @@ namespace SpaceInvaders
                 SizeF size = g.MeasureString(Bonus.convertToString(player.GetBonus()), defaultSmallFont);
                 g.DrawString(Bonus.convertToString(player.GetBonus()), defaultSmallFont, new SolidBrush(Color.White), gameSize.Width - 105f - size.Width / 2, 0f);
             }
-            
+
 
             foreach (GameObject gameObject in gameObjects)
             {
@@ -164,15 +164,23 @@ namespace SpaceInvaders
 
         private int determineOpacity()
         {
-            return Math.Abs(((int) (runningTime*120)%510)-255);
+            return Math.Abs(((int)(runningTime * 120) % 510) - 255);
         }
 
         private void DrawPause(Graphics g)
         {
             SizeF sizeString = g.MeasureString("Jeu en pause", defaultFont);
-            g.DrawString("Jeu en pause", defaultFont, blackBrush, (gameSize.Width/ 2) - (sizeString.Width / 2) , (gameSize.Height / 2) - (sizeString.Height / 2));
+            g.DrawString("Jeu en pause", defaultFont, blackBrush, (gameSize.Width / 2) - (sizeString.Width / 2), (gameSize.Height / 2) - (sizeString.Height / 2));
+            SizeF sizeStringSpace = g.MeasureString("Appuyer sur Echap pour continuer", defaultFont);
+            g.DrawString("Appuyer sur Echap pour continuer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
+        }
+
+        private void DrawInterLevel(Graphics g)
+        {
+            SizeF sizeString = g.MeasureString("Prochain niveau : Niveau " + LevelController.getCurrentLevel(), defaultFont);
+            g.DrawString("Prochain niveau : Niveau " + LevelController.getCurrentLevel(), defaultFont, blackBrush, (gameSize.Width / 2) - (sizeString.Width / 2), (gameSize.Height / 2) - (sizeString.Height / 2));
             SizeF sizeStringSpace = g.MeasureString("Appuyer sur Espace pour continuer", defaultFont);
-            g.DrawString("Appuyer sur Espace pour continuer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(),0,0,0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
+            g.DrawString("Appuyer sur Espace pour continuer", defaultFont, new SolidBrush(Color.FromArgb(determineOpacity(), 0, 0, 0)), (gameSize.Width / 2) - (sizeStringSpace.Width / 2), (gameSize.Height / 2) - (sizeStringSpace.Height / 2) + 50f);
         }
 
         private void DrawLose(Graphics g)
@@ -201,12 +209,12 @@ namespace SpaceInvaders
 
             //On affiche le tuto
             //On affiche pour les déplacements
-            g.DrawImage(Properties.Resources.left_right, gameSize.Width / 16, gameSize.Height / 4, Properties.Resources.left_right.Width / 6, Properties.Resources.left_right.Height/6);
+            g.DrawImage(Properties.Resources.left_right, gameSize.Width / 16, gameSize.Height / 4, Properties.Resources.left_right.Width / 6, Properties.Resources.left_right.Height / 6);
 
             SizeF sizeStringMovement = g.MeasureString("Utilisez les flèches du clavier", defaultSmallFont);
             g.DrawString("Utilisez les flèches du clavier", defaultSmallFont, blackBrush, gameSize.Width - sizeStringMovement.Width - 20f, gameSize.Height / 4 + 20f);
             SizeF sizeStringMovement2 = g.MeasureString("pour vous déplacer", defaultSmallFont);
-            g.DrawString("pour vous déplacer", defaultSmallFont, blackBrush, gameSize.Width - sizeStringMovement.Width - 20f + sizeStringMovement2.Width/4, gameSize.Height / 4 + 40f);
+            g.DrawString("pour vous déplacer", defaultSmallFont, blackBrush, gameSize.Width - sizeStringMovement.Width - 20f + sizeStringMovement2.Width / 4, gameSize.Height / 4 + 40f);
 
 
             //On affiche pour la pause
@@ -228,7 +236,6 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-
             switch (state)
             {
                 case GameState.STARTING:
@@ -250,34 +257,40 @@ namespace SpaceInvaders
                 case GameState.WIN:
                     DrawWin(g);
                     break;
+
+                case GameState.INTER_LEVEL:
+                    DrawInterLevel(g);
+                    break;
             }
         }
 
         public void initGame()
         {
             //On ajoute le joueur
+            this.gameObjects.Clear();
+            LevelController.reset();
             this.player = new Player();
-            this.enemyGroup = new EnemyGroup();
 
             AddNewGameObject(this.player);
-            AddNewGameObject(this.enemyGroup);
             Bunker.generateBunkers(this, 3);
-            state = GameState.RUNNING;
         }
 
-        /// <summary>
-        /// Update game
-        /// </summary>
-        public void Update(double deltaT)
+
+        private void updateStatus()
         {
-            runningTime += deltaT;
-            if (handlePause()) return;
+            if (gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
+            {
+                //On génère un nouveau EnemyGroup
+                this.state = (LevelController.haveNextLevel()) ? GameState.INTER_LEVEL : GameState.WIN;
+            }
+            if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
+            {
+                this.state = GameState.LOSE;
+            }
+        }
 
-            // add new game objects
-            gameObjects.UnionWith(pendingNewGameObjects);
-            pendingNewGameObjects.Clear();
-
-
+        private void handleRun(double deltaT)
+        {
             // update each game object
             foreach (GameObject gameObject in gameObjects)
             {
@@ -292,46 +305,84 @@ namespace SpaceInvaders
             ReleaseKeys();
         }
 
-
-        private void updateStatus()
+        private void handlePause(double deltaT)
         {
-            if (state == GameState.RUNNING)
-            {
-                if (gameObjects.OfType<Enemy>().Count() == 0)  // Si il n'y a plus d'ennemi
-                 {
-                    //On génère un nouveau EnemyGroup
-                    if (!LevelController.haveNextLevel()) //Si pas de nouveaux enemis n'ont pas été généré = fin de partie
-                    {
-                        this.state = GameState.WIN;
-                    }
-                    else
-                    {
-                        this.enemyGroup = new EnemyGroup();
-                        AddNewGameObject(this.enemyGroup);
-                    }
-                }
-                if (Game.game.gameObjects.OfType<Player>().Count() == 0) // Si il n'y a plus de joueur
-                {
-                    this.state = GameState.LOSE; 
-                }
-                if (this.state != GameState.RUNNING)
-                {
-                    this.gameObjects.Clear(); //Si la partie est finie, on nettoie la liste
-                }
-            }
-            else
-            {
-                if (keyPressed.Contains(Keys.Space)) initGame();
-            }
-
+            if (keyPressed.Contains(Keys.Escape)) this.state = GameState.RUNNING;
         }
 
-        private bool handlePause()
+
+        private void handleStart(double deltaT)
         {
-            if (keyPressed.Contains(Keys.Escape)) state = (state == GameState.PAUSE) ? GameState.RUNNING : GameState.PAUSE;
-            if (GameState.PAUSE == state) ReleaseKeys();
-            return GameState.PAUSE == state;
+            if (keyPressed.Contains(Keys.Space))
+            {
+                this.state = GameState.INTER_LEVEL;
+                initGame();
+            }
         }
+
+        private void handleWin(double deltaT)
+        {
+            if (keyPressed.Contains(Keys.Space)) this.state = GameState.STARTING;
+        }
+
+        private void handleLose(double deltaT)
+        {
+            if (keyPressed.Contains(Keys.Space)) this.state = GameState.STARTING;
+        }
+
+        private void handleInterLevel(double deltaT)
+        {
+            if (keyPressed.Contains(Keys.Space))
+            {
+                this.state = GameState.RUNNING;
+                this.gameObjects.RemoveWhere(g => g is EnemyGroup || g is Bonus); // On remove l'enemyGroup actuel et les bonus qui droppait
+                player.addBonus(BonusType.INVINCIBILITY, 0); //On clear le bonus actuel
+                this.enemyGroup = new EnemyGroup();
+                AddNewGameObject(this.enemyGroup);
+            }
+        }
+
+        /// <summary>
+        /// Update game
+        /// </summary>
+        public void Update(double deltaT)
+        {
+            runningTime += deltaT;
+
+            gameObjects.UnionWith(pendingNewGameObjects);
+            pendingNewGameObjects.Clear();
+
+            switch (state)
+            {
+                case GameState.STARTING:
+                    handleStart(deltaT);
+                    break;
+
+                case GameState.PAUSE:
+                    handlePause(deltaT);
+                    break;
+
+                case GameState.RUNNING:
+                    handleRun(deltaT);
+                    break;
+
+                case GameState.LOSE:
+                    handleLose(deltaT);
+                    break;
+
+                case GameState.WIN:
+                    handleWin(deltaT);
+                    break;
+
+                case GameState.INTER_LEVEL:
+                    handleInterLevel(deltaT);
+                    break;
+
+            }
+
+            ReleaseKeys();
+        }
+
         #endregion
     }
 }

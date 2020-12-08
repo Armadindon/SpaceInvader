@@ -31,6 +31,16 @@ namespace SpaceInvaders
             currentLevel++;
         }
 
+        public static int getCurrentLevel()
+        {
+            return currentLevel;
+        }
+
+        public static void reset()
+        {
+            currentLevel = 1;
+        }
+
         public static bool haveNextLevel()
         {
             return currentLevel < 4;

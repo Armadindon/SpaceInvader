@@ -12,7 +12,6 @@ namespace SpaceInvaders
     public class Sprite
     {
         private Bitmap[] image;
-        private double aliveTime = 0;
 
         public Sprite(params Bitmap[] images)
         {
@@ -27,7 +26,7 @@ namespace SpaceInvaders
 
         public Bitmap Draw()
         {
-            return image[(int)(aliveTime) % image.Length];
+            return image[(int)(Game.game.runningTime) % image.Length];
         }
 
         public List<Vecteur2D> pixelColliding(Sprite b, Vecteur2D position, Vecteur2D positionB)
@@ -53,11 +52,6 @@ namespace SpaceInvaders
             }
 
             return listColliding;
-        }
-
-        public void update(double deltaT)
-        {
-            aliveTime += deltaT;
         }
 
         private bool isPixelsColliding(int x, int y, Vecteur2D position, Vecteur2D positionB, Sprite b)

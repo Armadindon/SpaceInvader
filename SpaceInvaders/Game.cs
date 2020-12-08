@@ -295,7 +295,6 @@ namespace SpaceInvaders
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Update(this, deltaT);
-                if (gameObject.GetSprite() != null) gameObject.GetSprite().update(deltaT);
             }
 
             // remove dead objects

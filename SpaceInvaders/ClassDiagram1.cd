@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SpaceInvaders.Game">
-    <Position X="9" Y="1.25" Width="1.5" />
+    <Position X="13" Y="1.25" Width="1.5" />
     <Members>
       <Field Name="blackBrush" Hidden="true" />
       <Method Name="CreateGame" Hidden="true" />
@@ -14,7 +14,7 @@
       <Field Name="pendingNewGameObjects" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAwAAAiCAAABBhAAAAACAAAAAEBAAAANAkUAAAAAAAA=</HashCode>
+      <HashCode>AJwACAiSAACBBxAAAQACAAAABGhAAAANAkUAAAAAQQA=</HashCode>
       <FileName>Game.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -30,8 +30,16 @@
   </Class>
   <Class Name="SpaceInvaders.Player">
     <Position X="7" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="SpaceInvaders.GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="3.892" />
+        <Point X="5.75" Y="6.104" />
+        <Point X="7.75" Y="6.104" />
+        <Point X="7.75" Y="6.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>CQQAgAAgABAAEgAgQAAAoBBAABIAAAABACFCAAIAAAA=</HashCode>
+      <HashCode>CQQAgAAgABAAEgAgQCAAoBBAABIAAAABACFCAAIAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -44,18 +52,26 @@
   </Class>
   <Class Name="SpaceInvaders.Enemy">
     <Position X="1" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="SpaceInvaders.GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="3.892" />
+        <Point X="5.75" Y="6.096" />
+        <Point X="1.75" Y="6.096" />
+        <Point X="1.75" Y="6.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AQQAgAAAAAAAEgAgQAAAIAAAABIAAAABAAAAAAIAAAA=</HashCode>
       <FileName>Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Sprite">
-    <Position X="3.25" Y="1.25" Width="1.5" />
+    <Position X="3" Y="1" Width="1.5" />
     <Members>
       <Field Name="image" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAQCAAAAAAAAgAAAQAAAAAAEAAAAAAgAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAQCAAAAAAAAgAAAAAAAAAAEAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -67,17 +83,54 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.Rectangle">
-    <Position X="1" Y="1.25" Width="1.5" />
+    <Position X="1" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAgAARAAAAAAABAQAAEAAAAIAACAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAABAQAAEAAAAIAACAAAAA=</HashCode>
       <FileName>Rectangle.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpaceInvaders.EnemyGroup">
     <Position X="9" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="SpaceInvaders.GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="3.892" />
+        <Point X="5.75" Y="6.083" />
+        <Point X="9.75" Y="6.083" />
+        <Point X="9.75" Y="6.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AQQAgAQAAAAAEgEgQAAAAAEBAAAAAgABAAAAAAJAAIA=</HashCode>
+      <HashCode>AQQAgAQAAAAAEgEgQAAAAAEBAAAAAgABAAAAAAIAAIA=</HashCode>
       <FileName>EnemyGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.Bonus">
+    <Position X="10.75" Y="6.25" Width="1.5" />
+    <InheritanceLine Type="SpaceInvaders.GameObject" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="3.892" />
+        <Point X="5.75" Y="6.063" />
+        <Point X="11.5" Y="6.063" />
+        <Point X="11.5" Y="6.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AQQIgAAAAAAIEgAgQAAAIAAAABIBAAABAEAAAAIAAAA=</HashCode>
+      <FileName>Bonus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.LevelController">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAABAAAAAAAgAAAAAAAAAABBAAAAABAAAA=</HashCode>
+      <FileName>LevelController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpaceInvaders.LineSchematic">
+    <Position X="1" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACABAAAAAAAAAIABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LineSchematic.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="SpaceInvaders.Teams">
@@ -85,6 +138,20 @@
     <TypeIdentifier>
       <HashCode>BAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAA=</HashCode>
       <FileName>Teams.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SpaceInvaders.GameState">
+    <Position X="7" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAQAAAAIAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>GameState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SpaceInvaders.BonusType">
+    <Position X="8.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAAAAAAAg=</HashCode>
+      <FileName>BonusType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

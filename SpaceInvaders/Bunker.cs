@@ -31,12 +31,14 @@ namespace SpaceInvaders
         {
             Bitmap sprite = Properties.Resources.bunker;
             Bitmap playerSprite = Properties.Resources.ship1;
-            double spacing = 50;
-            double totalSize = spacing * (number - 1) + sprite.Width * number;
+            Vecteur2D start = new Vecteur2D(0, instance.gameSize.Height - (playerSprite.Height * number + 50 + sprite.Height));
+            int offset = (instance.gameSize.Width - (number * sprite.Width)) / (number + 1);
+            start += new Vecteur2D(offset, 0);
 
             for (int i = 0; i < number; i++)
             {
-                instance.AddNewGameObject(new Bunker(instance.gameSize.Width / 4 + i * (sprite.Width + spacing), instance.gameSize.Height - (playerSprite.Height * 3 + spacing + sprite.Height)));
+                instance.AddNewGameObject(new Bunker(new Vecteur2D(start)));
+                start += new Vecteur2D(offset + sprite.Width, 0);
             }
         }
 

@@ -12,9 +12,9 @@ L'objectif de ce projet était de proposer un jeu vidéo se rapprochant a <u>Spa
 ## Sommaire
 
 1. [Sommaire](#Sommaire)
-2. [Structure du programme](#Structure du programme)
+2. [Structure du programme](#structure-du-programme)
 3. [Addons](#Addons)
-4. [Problèmes rencontrés](#Problèmes rencontrés)
+4. [Problèmes rencontrés](#problèmes-rencontrés)
 
 
 

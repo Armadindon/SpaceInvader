@@ -4,12 +4,19 @@
 
 Projet réalisé par PERRIN Baptiste en 2020 dans le cadre de la matière **Programmation Orientée Objet** de la filière E3FI de l'ESIEE Paris, celui-ci a été effectué en suivant la Piste Bleue.
 
+
+L'objectif de ce projet était de proposer un jeu vidéo se rapprochant a <u>Space Invaders</u>, en utilisant le langage c# et les principes de base de la programmation orienté objet.
+
+
+
 ## Sommaire
 
 1. [Sommaire](#Sommaire)
 2. [Structure du programme](#Structure du programme)
 3. [Addons](#Addons)
 4. [Problèmes rencontrés](#Problèmes rencontrés)
+
+
 
 ## Structure du programme
 
@@ -50,7 +57,11 @@ Et le fichier principal **Game.cs** contenant plusieurs choses:
 
 J'ai également ajouté quelques Addons au jeu original.
 
+### Animations
 
+Afin de proposer une expérience de jeu un peu plus agréable, j'ai ajouté les animations des ennemis, même si celle-ci pourrait être généralisé aux différents GameObjects (puisque utilisant tous la classe Sprite afin de gérer les images).
+
+Celle-ci marche au rythme de une image différente par seconde (On peut gérer ça grâce a un champ dans la classe Game).
 
 ### Bonus
 
@@ -65,21 +76,13 @@ Si il atteint le joueur, celui-ci donne un effet aléatoire au joueur (Celui-ci 
 - **Super Missile**, pendant 6 secondes, le joueur tire des missiles ayant un plus grand pouvoir de perforation (Faisant plus de dégâts aux ennemis, et potentiellement leur passant au travers après les avoir tués)
 - **+1 up**, qui rajoute une vie au joueur
 
-
-
 Au futur, j'aimerais bien ajouter plus de Bonus (Tel que des missiles téléguidés, un allié temporaire, ou un bouclier renvoyant le missile a leur envoyeur)
-
-
 
 ### Son
 
 Le son a été ajouté, cependant, celui-ci a une implémentation très basique.
 
 Aujourd'hui, les seuls évènements faisant un effet sonore sont le tir et la mort d'un ennemi.
-
-Cependant, dans sa version actuelle, un problème est que lorsque un son et joué, si un autre son est joué, celui-ci écrase l'autre son, je n'ai pas encore cherché de solutions à ce problème.
-
-
 
 ### Système de niveau
 
@@ -88,8 +91,6 @@ J'ai ajouter un système de niveaux, celui-ci est basique et pour l'instant, non
 Aujourd'hui le jeu ne compte que 3 niveaux différents, ayant chacun un nombre et une disposition d'ennemis différentes.
 
 A terme, j'aimerais bien ajouter un système "personnalisés" de niveau, permettant au joueur de décrire le niveau dans des fichiers, JSON par exemple.
-
-
 
 ### Écrans améliorés
 
@@ -102,8 +103,6 @@ J'ai donc, comme dit précédemment, ajouté quelques écrans, et ajouté quelqu
 ## Problèmes rencontrés
 
 Lors de la réalisation du projet, j'ai pu rencontrer quelques problèmes
-
-
 
 ### Collision par Pixel
 
@@ -143,7 +142,11 @@ J'ai eu quelques difficultés a mettre en place la collision, cependant, j'ai r�
         }
 ```
 
+### Son
 
+Lors de l'ajout de l'addon des Effets sonores, j'ai pu remarquer que lorsque deux sons se jouaient simultanément, le dernier arrivé écrasait le premier son.
+
+Une solution n'a pas encore été trouvé, par faute de temps et d'envie, j'ai cependant trouvé quelques solutions après des recherches sur internet que [l'utilisation d'api comme DirectX](https://stackoverflow.com/questions/1285294/play-multiple-sounds-using-soundplayer) sont nécessaires.
 
 ### Habitudes du Java
 

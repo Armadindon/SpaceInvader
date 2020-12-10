@@ -102,7 +102,7 @@ namespace SpaceInvaders
             List<Vecteur2D> collidingPixels = pixelColliding(b, position, positionB);
             foreach (Vecteur2D pixel in collidingPixels)
             {
-                Draw().SetPixel((int)pixel.X, (int)pixel.Y, Color.FromArgb(0, 255, 255, 255));
+                foreach(Bitmap img in image) img.SetPixel((int)pixel.X, (int)pixel.Y, Color.FromArgb(0, 255, 255, 255));
             }
             return collidingPixels.Count();
         }
